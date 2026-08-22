@@ -25,7 +25,7 @@ Key product decisions:
 - **Embedding model:** `BAAI/bge-small-en-v1.5`, producing 384-dimensional vectors.
 - **Reranker:** BGE cross-encoder.
 - **LLM:** hosted API via OpenRouter (Claude / OpenAI models).
-- **Deployment target:** GCP Cloud Run (API), Vercel (web), Supabase (Postgres + pgvector). Decommissioned 2026-08-22 — Cloud Run, Artifact Registry, and secrets were torn down; nothing is live.
+- **Deployment target:** GCP Cloud Run (API), Vercel (web), Supabase (Postgres + pgvector). Decommissioned 2026-08-22: Cloud Run, Artifact Registry, and secrets were torn down. Nothing is live.
 
 ### Retrieval mode: read this before changing a default
 
@@ -150,7 +150,7 @@ This is a **Turborepo + uv workspace** monorepo.
 | Evals | Hand-rolled LLM-judge (OpenRouter via `openai` SDK) |
 | Observability | Langfuse Cloud |
 | Local infra | Docker Compose |
-| Deployment | GCP Cloud Run, Vercel, Supabase — decommissioned 2026-08-22 |
+| Deployment | GCP Cloud Run, Vercel, Supabase. Decommissioned 2026-08-22. |
 | Testing | pytest (Python), Vitest (web) |
 
 ---

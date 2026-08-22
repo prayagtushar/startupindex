@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/prayagtushar/isra/actions/workflows/ci.yml/badge.svg)](https://github.com/prayagtushar/isra/actions/workflows/ci.yml)
 
-**Status: archived.** The live deployment was decommissioned on 2026-08-22 (Cloud Run service, Artifact Registry images, and secrets torn down to stop GCP billing), so `isra.prayagtushar.xyz`, `/lab`, `/search`, and `/startups` are no longer reachable. Everything below, including the pipeline, evals, and the deployment guide, is kept as a working reference — see [Deployment](#deployment) to stand it back up.
+**Status: archived.** I tore down the live deployment on 2026-08-22 (Cloud Run, Artifact Registry, and secrets, all deleted to stop GCP billing), so `isra.prayagtushar.xyz`, `/lab`, `/search`, and `/startups` no longer respond. The code, evals, and the [Deployment](#deployment) runbook below still work if you want to stand it back up yourself.
 
 A hand-rolled Retrieval-Augmented Generation (RAG) system over Indian startup data, built without LangChain so that ranking, fusion and citation behaviour stay under direct control. The full pipeline runs vector search and Postgres full-text search into RRF fusion, then a BGE reranker, then streaming generation. All of it is implemented from primitives and measured by an evaluation harness that is also hand-rolled.
 
@@ -85,7 +85,7 @@ Key design decisions:
 | Evals | Hand-rolled LLM-judge |
 | Observability | Langfuse Cloud |
 | Local infrastructure | Docker Compose |
-| Deployment targets | GCP Cloud Run (API), Vercel (web), Supabase (Postgres) — decommissioned 2026-08-22 |
+| Deployment targets | GCP Cloud Run (API), Vercel (web), Supabase (Postgres). Decommissioned 2026-08-22. |
 
 ## Architecture
 
@@ -312,7 +312,7 @@ lookups, dropping 0.917 to 0.667, because keyword hits displace the chunk vector
 search already had in first place, and the cross-encoder recovers only part of
 that, bringing 0.667 back to 0.750. Fusion is under-tuned rather than wrong in
 principle, and tuning its weighting is the obvious next step. All three stages
-are visible in `/lab` (no longer deployed; see [Status](#indian-startup-ecosystem-rag-isra)), which is how the
+are visible in `/lab` (no longer deployed, see Status above), which is how the
 keyword list, the step that does the damage, became inspectable at all.
 
 One wrinkle worth stating, because the code does not read the way that paragraph
