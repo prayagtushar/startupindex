@@ -35,7 +35,7 @@ export function EmptyState({ onPick }: { onPick: (q: string) => void }) {
     <div className="flex h-full flex-col items-center justify-center px-6 py-12">
       <div className="w-full max-w-2xl">
         <h1 className="display-sm text-[26px] text-ink">
-          Indian Startup Ecosystem RAG
+          Indian Startup Research Assistant
         </h1>
         <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
           {count === null ? "Indian startups" : `${count} startups`} · Y Combinator +
