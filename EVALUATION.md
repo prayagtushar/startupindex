@@ -1,4 +1,4 @@
-# Evaluation — Indian Startup Ecosystem RAG
+# Evaluation — Indian Startup Research Assistant
 
 Generated: 2026-08-11T06:00:48+00:00 · questions: 41 · top_k: 5 · model: `anthropic/claude-haiku-4.5`
 

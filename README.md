@@ -1,4 +1,4 @@
-# Indian Startup Ecosystem RAG (ISRA)
+# Indian Startup Research Assistant (ISRA)
 
 [![CI](https://github.com/prayagtushar/isra/actions/workflows/ci.yml/badge.svg)](https://github.com/prayagtushar/isra/actions/workflows/ci.yml)
 
