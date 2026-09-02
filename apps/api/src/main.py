@@ -53,7 +53,7 @@ async def lifespan(app: FastAPI):
         _langfuse.flush()
 
 
-app = FastAPI(title="Indian Startup Research Assistant API", lifespan=lifespan)
+app = FastAPI(title="StartupIndex API", lifespan=lifespan)
 
 # Set ISRA_CORS_ORIGINS to the deployed domain in production; locally allow everything.
 _cors_origins = os.environ.get("ISRA_CORS_ORIGINS", "*").split(",")

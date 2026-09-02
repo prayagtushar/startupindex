@@ -1,4 +1,4 @@
-# AGENTS.md: Indian Startup Research Assistant (ISRA)
+# AGENTS.md: StartupIndex
 
 > Onboarding reference for AI coding agents working on this repo. Read this before modifying code or running commands.
 >

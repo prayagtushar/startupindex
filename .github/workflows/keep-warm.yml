@@ -1,0 +1,16 @@
+# Cloud Run scales to zero, and this image loads two BGE models on start, so a
+# cold visitor waits ~30s. Pinging /health keeps an instance alive. Billing is
+# request-time only (CPU is throttled between requests), so the pings cost ~0.
+name: keep-warm
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping /health
+        run: curl -fsS --max-time 60 "${{ vars.API_URL }}/health"

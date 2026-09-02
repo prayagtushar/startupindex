@@ -1,6 +1,6 @@
 # ISRA Web
 
-Next.js 16 frontend for the Indian Startup Research Assistant API — a minimal,
+Next.js 16 frontend for the StartupIndex API — a minimal,
 monochrome (light + dark) interface with a streaming chat, a retrieval lab, a
 search explorer, and a startup browser.
 

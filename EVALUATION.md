@@ -1,4 +1,4 @@
-# Evaluation — Indian Startup Research Assistant
+# Evaluation — StartupIndex
 
 **The project is archived** (live deployment torn down 2026-08-22), but every
 number here is reproducible offline: `evaluation.json` holds the raw run and the
