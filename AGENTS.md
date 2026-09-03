@@ -282,11 +282,11 @@ The retrieval integration tests read `ISRA_TEST_DATABASE_URL` (default
 write to whatever database `.env` points at. They skip when no test database is
 reachable.
 
-### Continuous integration
+### Checks before a commit
 
-`.github/workflows/ci.yml` runs on every push and pull request: the four Python
-suites against a real `pgvector` service container, plus the web app's lint, unit
-tests and production build.
+There is no CI. Run the suites yourself: `uv run --directory packages/retrieval
+pytest`, then the same for `apps/api`, `apps/ingest` and `apps/evals`, plus `bun
+run lint` and `bun run build` for the web app.
 
 ---
 
