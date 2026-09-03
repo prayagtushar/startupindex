@@ -1,8 +1,7 @@
 # Evaluation — StartupIndex
 
-**The project is archived** (live deployment torn down 2026-08-22), but every
-number here is reproducible offline: `evaluation.json` holds the raw run and the
-harness needs no deployment.
+Every number here is reproducible offline. `evaluation.json` holds the raw run
+and the harness needs no deployment.
 
 Read the mode comparison first. **Plain vector search beats the full pipeline** —
 0.839 hit@k against 0.774 for hybrid+rerank and 0.613 for hybrid. The

@@ -25,7 +25,7 @@ Key product decisions:
 - **Embedding model:** `BAAI/bge-small-en-v1.5`, producing 384-dimensional vectors.
 - **Reranker:** BGE cross-encoder.
 - **LLM:** hosted API via OpenRouter (Claude / OpenAI models).
-- **Deployment target:** GCP Cloud Run (API), Vercel (web), Supabase (Postgres + pgvector). Decommissioned 2026-08-22: Cloud Run, Artifact Registry, and secrets were torn down. Nothing is live.
+- **Deployment target:** GCP Cloud Run (API, `asia-south1`), Vercel (web), Supabase (Postgres + pgvector, reached through the session pooler).
 
 ### Retrieval mode: read this before changing a default
 
@@ -150,7 +150,7 @@ This is a **Turborepo + uv workspace** monorepo.
 | Evals | Hand-rolled LLM-judge (OpenRouter via `openai` SDK) |
 | Observability | Langfuse Cloud |
 | Local infra | Docker Compose |
-| Deployment | GCP Cloud Run, Vercel, Supabase. Decommissioned 2026-08-22. |
+| Deployment | GCP Cloud Run, Vercel, Supabase. |
 | Testing | pytest (Python), Vitest (web) |
 
 ---
@@ -324,7 +324,11 @@ All `.env*` files are gitignored. Do not commit secrets.
 
 ## Deployment
 
-**Decommissioned 2026-08-22.** The Cloud Run service, Artifact Registry images, and Secret Manager secrets were deleted to stop GCP billing. Nothing described below is live; treat it as a runbook for redeploying from scratch.
+Build the image with [`infra/cloudbuild.yaml`](infra/cloudbuild.yaml), not `gcloud builds submit --tag`. The Dockerfile uses `RUN --mount=type=cache`, which needs BuildKit, and the default builder does not enable it. The config also stays on the default machine type so builds fall inside the free 120 build-minutes per day.
+
+Deploy with `--min-instances=0` and no load balancer. An external HTTP load balancer bills around $18 a month whether or not anyone visits and does not scale to zero. At `min-instances=0` with CPU throttling left on, Cloud Run bills only while a request runs. The cost is a cold start of about 30 seconds while the two BGE models load, which `.github/workflows/keep-warm.yml` covers by pinging `/health` every ten minutes.
+
+Supabase now serves the direct `db.<ref>` hostname over IPv6 only. Use the session pooler on port 5432; the transaction pooler on 6543 breaks psycopg3's prepared statements.
 
 - **API:** GCP Cloud Run. The image ships the BGE models and is roughly 1.5 GB compressed. It runs with 4 vCPU so cross-encoder reranking returns in about 4.5 seconds instead of about 20, and with `--max-instances 1` because rate limits are held in process.
 - **Web:** Vercel.
