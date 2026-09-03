@@ -1,0 +1,20 @@
+# Vercel builds apps/web only. Keep the Python side and every cache out of the upload.
+.git
+.venv
+**/.venv
+node_modules
+**/node_modules
+dist
+**/dist
+.next
+**/.next
+.turbo
+**/.turbo
+.pytest_cache
+.playwright-mcp
+data
+assets
+apps/api
+apps/ingest
+apps/evals
+packages/retrieval

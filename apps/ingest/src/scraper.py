@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 from src.schema import Startup
 from src.sectors import normalize_sectors
 
-USER_AGENT = "ISRA-Bot/0.1 {+https://github.com/prayagtushar/isra.git}"
+USER_AGENT = "ISRA-Bot/0.1 {+https://github.com/prayagtushar/startupindex.git}"
 
 _LIST_URL = "https://en.wikipedia.org/wiki/List_of_unicorn_startup_companies"
 

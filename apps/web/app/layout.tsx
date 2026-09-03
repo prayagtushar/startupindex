@@ -16,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "ISRA — Indian Startup Research Assistant",
+  title: "StartupIndex",
   description:
     "Search and explore the Indian startup ecosystem with hybrid retrieval and grounded, cited answers.",
 };

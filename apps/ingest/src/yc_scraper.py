@@ -7,7 +7,7 @@ from src.schema import Startup
 
 # Community-maintained static mirror of YC's directory: one request, no key, no anti-bot.
 _YC_ALL_URL = "https://yc-oss.github.io/api/companies/all.json"
-USER_AGENT = "ISRA-Bot/0.1 (+https://github.com/prayagtushar/isra.git)"
+USER_AGENT = "ISRA-Bot/0.1 (+https://github.com/prayagtushar/startupindex.git)"
 
 _YEAR_RE = re.compile(r"\b(?:19|20)\d{2}\b")
 

@@ -20,7 +20,7 @@ def render_markdown(
     meta: dict, mode_results: list[ModeResult], gen: GenerationReport | None
 ) -> str:
     lines: list[str] = []
-    lines.append("# Evaluation — Indian Startup Research Assistant")
+    lines.append("# Evaluation — StartupIndex")
     lines.append("")
     lines.append(
         f"Generated: {meta['generated_at']} · questions: {meta['n']} · "
