@@ -2,7 +2,10 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Palette: parchment and ink, one hue per channel — teal vector, ochre keyword, terracotta fusion, ink rerank. */
+/* Palette: parchment and ink, one hue per channel — teal vector, ochre keyword,
+   terracotta fusion, ink rerank, plus one red that only ever means failure.
+   Every hue clears 4.6:1 on all three surfaces in BOTH themes, so nothing reads
+   weaker after a theme switch. */
 
 :root {
   --base: #f6f3ec;
@@ -10,18 +13,18 @@
   --panel-2: #ebe5d8;
   --ink: #1b1a15;
   --muted: #6b6455;
-  --faint: #9c9482;
-  --line: rgb(27 26 21 / 0.11);
-  --line-strong: rgb(27 26 21 / 0.2);
+  --faint: #6a6557;
+  --line: rgb(27 26 21 / 0.14);
+  --line-strong: rgb(27 26 21 / 0.28);
 
-  --accent: #b34f2c;
-  --accent-soft: rgb(179 79 44 / 0.11);
   --focus: #1b1a15;
 
-  --vector: #1c6b66;
-  --keyword: #a8761a;
-  --fusion: #b34f2c;
+  --vector: #1d716c;
+  --keyword: #78630f;
+  --fusion: #ab452b;
   --rerank: #1b1a15;
+  --danger: #bc312c;
+  --danger-soft: rgb(188 49 44 / 0.1);
 
   --shadow-panel: 0 1px 2px rgb(27 26 21 / 0.05), 0 1px 1px rgb(27 26 21 / 0.03);
   --shadow-lift: 0 10px 30px -12px rgb(27 26 21 / 0.22);
@@ -34,19 +37,20 @@
   --panel-2: #26231b;
   --ink: #f4f1e6;
   --muted: #a49b86;
-  --faint: #6f6857;
-  --line: rgb(244 241 230 / 0.11);
-  --line-strong: rgb(244 241 230 / 0.22);
+  --faint: #918b78;
+  --line: rgb(244 241 230 / 0.14);
+  --line-strong: rgb(244 241 230 / 0.3);
 
-  --accent: #e07a52;
-  --accent-soft: rgb(224 122 82 / 0.15);
   --focus: #f4f1e6;
 
-  /* Lifted off the dark ground; ink inverts to parchment so the served ranking stays highest-contrast. */
-  --vector: #3fa8a0;
-  --keyword: #d8a441;
-  --fusion: #e07a52;
+  /* Lifted off the dark ground, but held to the same contrast band as light —
+     the ochre used to read at 8.3:1 here and 3.6:1 there. */
+  --vector: #3a9a93;
+  --keyword: #a38923;
+  --fusion: #db6a4e;
   --rerank: #f4f1e6;
+  --danger: #e1645f;
+  --danger-soft: rgb(225 100 95 / 0.14);
 
   --shadow-panel: 0 1px 2px rgb(0 0 0 / 0.4);
   --shadow-lift: 0 10px 30px -12px rgb(0 0 0 / 0.6);
@@ -62,13 +66,13 @@
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
   --color-focus: var(--focus);
-  --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
 
   --color-vector: var(--vector);
   --color-keyword: var(--keyword);
   --color-fusion: var(--fusion);
   --color-rerank: var(--rerank);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
     sans-serif;
@@ -76,7 +80,18 @@
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo,
     monospace;
 
-  /* Near-zero radii: this reads as an instrument, not a card deck. */
+  /* Six steps, no more. Every size in the app is one of these. The floor is
+     11px: below that the mono face stops being readable at a normal distance. */
+  --text-xs: 0.6875rem; /* 11 — labels, meta, keys, scores */
+  --text-sm: 0.8125rem; /* 13 — UI text, list rows, chips */
+  --text-base: 0.9375rem; /* 15 — answers, input, body copy */
+  --text-lg: 1.125rem; /* 18 — drawer and panel titles */
+  --text-xl: 1.5rem; /* 24 — page titles */
+  --text-2xl: 2rem; /* 32 — the arrival heading */
+
+  /* One tracking value for the uppercase label idiom, one radius for everything
+     that isn't a pill. Four of each is not a system. */
+  --tracking-label: 0.12em;
   --radius-card: 3px;
   --radius-input: 3px;
 }
@@ -104,6 +119,7 @@
     background-color: var(--base);
     color: var(--ink);
     font-family: var(--font-mono);
+    font-size: var(--text-sm);
     font-feature-settings: "tnum" 1;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -117,18 +133,39 @@
   }
 
   ::selection {
-    background-color: var(--accent);
-    color: #fff;
+    background-color: var(--ink);
+    color: var(--base);
   }
 
-  /* Small caps-style metadata: the workhorse label for scores, modes and keys. */
+  /* The single metadata idiom: scores, modes, keys, section headers. Anything
+     that reaches for uppercase mono uses this class rather than respelling it. */
   .label {
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.14em;
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-label);
     text-transform: uppercase;
     color: var(--faint);
     font-weight: 500;
+  }
+
+  /* Two characters carrying the same meaning as a channel hue, so the trace
+     still reads in grayscale, in a screenshot, and to a colour-blind reader. */
+  .sigil {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.375rem;
+    height: 1rem;
+    flex-shrink: 0;
+    border-radius: 2px;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--panel);
+  }
+  .dark .sigil {
+    color: var(--base);
   }
 
   * {

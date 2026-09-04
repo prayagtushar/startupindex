@@ -32,12 +32,13 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <div className="flex h-full w-full flex-col bg-base">
-      <div className="flex h-14 items-center gap-2 px-4">
-        <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
+      <div className="flex h-13 items-center gap-2 px-4">
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 rounded-card transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+        >
           <Logo />
-          <span className="font-mono text-[13px] font-semibold tracking-[0.2em] text-ink">
-            ISRA
-          </span>
+          <span className="label text-ink">StartupIndex</span>
         </Link>
       </div>
 
@@ -45,7 +46,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         <button
           type="button"
           onClick={startNewChat}
-          className="flex h-9 w-full items-center gap-2 rounded-[3px] border border-line px-3 text-[13px] font-medium text-ink transition-colors hover:bg-panel-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40"
+          className="flex h-9 w-full items-center gap-2 rounded-card border border-line px-3 text-sm font-medium text-ink transition-colors hover:bg-panel-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base"
         >
           <Plus size={15} className="text-faint" />
           New chat
@@ -63,7 +64,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
               onClick={onNavigate}
               aria-current={isActive ? "page" : undefined}
               className={cn(
-                "flex items-center gap-2.5 rounded-[3px] px-3 py-2 text-[13px] transition-colors",
+                "flex items-center gap-2.5 rounded-card px-3 py-2 text-sm transition-colors",
                 isActive
                   ? "bg-panel-2 font-medium text-ink"
                   : "text-muted hover:bg-panel-2 hover:text-ink",
@@ -102,7 +103,7 @@ export function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
               aria-labelledby="trace-toggle-label"
               onClick={() => setShowRetrievalTrace(!showRetrievalTrace)}
               className={cn(
-                "inline-flex h-6 w-10 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40",
+                "inline-flex h-6 w-10 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base",
                 showRetrievalTrace ? "bg-ink" : "bg-line",
               )}
             >

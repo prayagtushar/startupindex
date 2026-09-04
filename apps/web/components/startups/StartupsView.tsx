@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { LayoutGrid, Search as SearchIcon, TriangleAlert } from "lucide-react";
 import { fetchStartups } from "@/lib/api";
-import { Spinner } from "@/components/ui/Spinner";
 import { StateView } from "@/components/ui/StateView";
 import { StartupCard } from "./StartupCard";
 import { StartupDrawer } from "./StartupDrawer";
@@ -87,7 +86,7 @@ export function StartupsView() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search startups by name or description…"
-              className="h-10 w-full rounded-[3px] border border-line bg-panel pl-9 pr-3 text-sm text-ink placeholder:text-faint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40"
+              className="h-10 w-full rounded-card border border-line bg-panel pl-9 pr-3 text-sm text-ink placeholder:text-faint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base"
             />
           </div>
           {sectors.length > 0 && (
@@ -108,7 +107,7 @@ export function StartupsView() {
                 <button
                   type="button"
                   onClick={() => setAllSectors((open) => !open)}
-                  className="rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-faint underline decoration-dotted underline-offset-4 transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40"
+                  className="rounded-full px-2.5 py-1 label text-faint underline decoration-dotted underline-offset-4 transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base"
                 >
                   {allSectors ? "Fewer sectors" : `All ${sectors.length} sectors`}
                 </button>
@@ -121,11 +120,19 @@ export function StartupsView() {
       <div className="min-h-0 flex-1 overflow-y-auto">
         <div className="mx-auto w-full max-w-6xl px-4 py-6">
           {loading ? (
-            <div className="flex items-center justify-center gap-2 py-20 text-faint">
-              <Spinner />
-              <span className="font-mono text-[11px] uppercase tracking-[0.14em]">
-                Loading
-              </span>
+            // A spinner says "wait"; this says "cards, this many, this shape".
+            <div
+              role="status"
+              aria-live="polite"
+              aria-label="Loading startups"
+              className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
+            >
+              {Array.from({ length: 9 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="h-[124px] animate-pulse-dot rounded-card border border-line bg-panel-2"
+                />
+              ))}
             </div>
           ) : error ? (
             <StateView
@@ -183,9 +190,9 @@ function SectorChip({
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40",
+        "rounded-full border px-2.5 py-1 label transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base",
         active
-          ? "border-accent bg-accent text-panel"
+          ? "border-ink bg-ink text-base"
           : "border-line text-faint hover:border-line-strong hover:text-ink",
       )}
     >

@@ -4,7 +4,7 @@ export function Logo({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        "inline-flex h-6 w-6 items-center justify-center rounded-[2px] bg-ink text-base",
+        "inline-flex h-6 w-6 items-center justify-center rounded-card bg-ink text-base",
         className,
       )}
       aria-hidden

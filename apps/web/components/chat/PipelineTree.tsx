@@ -13,9 +13,15 @@ const LABELS: Record<StageName, string> = {
   generate: "Generating answer",
 };
 
+const STATUS_TEXT: Record<StageStatus, string> = {
+  done: "done",
+  running: "running",
+  pending: "queued",
+};
+
 function Marker({ status }: { status: StageStatus }) {
   return (
-    <span className="inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center">
+    <span className="inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center" aria-hidden>
       {status === "done" ? (
         <Check size={12} strokeWidth={2.25} className="text-muted" />
       ) : status === "running" ? (
@@ -40,8 +46,9 @@ function Row({
     <div className="flex items-center gap-2.5 py-[3px]">
       <Marker status={status} />
       <span
+        title={STATUS_TEXT[status]}
         className={cn(
-          "font-mono text-[11px] uppercase tracking-[0.12em] transition-colors",
+          "label transition-colors",
           status === "running"
             ? "text-ink"
             : status === "done"
@@ -50,8 +57,11 @@ function Row({
         )}
       >
         {label}
+        <span className="sr-only"> — {STATUS_TEXT[status]}</span>
         {generating && status === "running" && (
-          <span className="ml-1 animate-pulse-dot">…</span>
+          <span className="ml-1 animate-pulse-dot" aria-hidden>
+            …
+          </span>
         )}
       </span>
     </div>
@@ -79,10 +89,10 @@ export function PipelineTree({ pipeline }: { pipeline: PipelineState }) {
   const groupStatus: StageStatus = retrievalDone ? "done" : "running";
 
   return (
-    <div className="animate-rise-in py-1">
+    <div className="animate-rise-in py-1" role="status" aria-live="polite">
       <div className="flex items-center gap-3">
         <span className="h-px flex-1 bg-line" />
-        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-faint">
+        <span className="label text-faint">
           {phase}
         </span>
         <span className="h-px flex-1 bg-line" />

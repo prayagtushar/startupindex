@@ -4,6 +4,18 @@ import type { RetrievalMode, TraceStage } from "@/lib/types";
 /** Each retrieval channel owns a hue, so a bar says which search produced a result. */
 export type Channel = "vector" | "keyword" | "fusion" | "rerank";
 
+/**
+ * Two mono characters carrying exactly what the hue carries. The four channel
+ * hues sit at equal luminance, so a colour-blind reader, a grayscale print and
+ * a screenshot all lose the distinction — the sigil survives all three.
+ */
+export const CHANNEL_SIGILS: Record<Channel, string> = {
+  vector: "VE",
+  keyword: "KW",
+  fusion: "FU",
+  rerank: "RR",
+};
+
 export const CHANNEL_LABELS: Record<Channel, string> = {
   vector: "Vector search",
   keyword: "Keyword search",

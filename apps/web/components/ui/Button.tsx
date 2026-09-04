@@ -13,10 +13,10 @@ const VARIANTS: Record<Variant, string> = {
 };
 
 const SIZES: Record<Size, string> = {
-  sm: "h-8 px-3 text-[13px] rounded-[3px] gap-1.5",
-  md: "h-9 px-4 text-sm rounded-[3px] gap-2",
-  icon: "h-9 w-9 rounded-[3px]",
-  iconSm: "h-7 w-7 rounded-[2px]",
+  sm: "h-8 px-3 text-sm rounded-card gap-1.5",
+  md: "h-9 px-4 text-sm rounded-card gap-2",
+  icon: "h-9 w-9 rounded-card",
+  iconSm: "h-7 w-7 rounded-card",
 };
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -38,7 +38,7 @@ export function Button({
     <Comp
       type={asChild ? undefined : type}
       className={cn(
-        "inline-flex select-none items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40 disabled:pointer-events-none disabled:opacity-40",
+        "inline-flex select-none items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base disabled:pointer-events-none disabled:opacity-40",
         VARIANTS[variant],
         SIZES[size],
         className,

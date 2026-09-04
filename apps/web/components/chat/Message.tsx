@@ -18,7 +18,7 @@ import type { RetrievalTrace as RetrievalTraceType } from "@/lib/types";
 function UserBubble({ content }: { content: string }) {
   return (
     <div className="flex justify-end">
-      <div className="prose-human max-w-[85%] whitespace-pre-wrap border border-line bg-panel px-4 py-2.5 text-[15px] leading-relaxed text-ink">
+      <div className="prose-human max-w-[85%] whitespace-pre-wrap border border-line bg-panel px-4 py-2.5 text-base leading-relaxed text-ink">
         {content}
       </div>
     </div>
@@ -28,12 +28,13 @@ function UserBubble({ content }: { content: string }) {
 function ErrorNote({ message, subtle }: { message?: string; subtle?: boolean }) {
   return (
     <div
+      role="alert"
       className={cn(
-        "flex items-start gap-2 rounded-[3px] border border-line px-3 py-2 text-[13px] text-muted",
-        subtle ? "mt-3" : "bg-panel-2",
+        "flex items-start gap-2 rounded-card border border-line px-3 py-2 text-sm text-muted",
+        subtle ? "mt-3" : "bg-danger-soft",
       )}
     >
-      <TriangleAlert size={14} className="mt-0.5 shrink-0 text-faint" />
+      <TriangleAlert size={14} className="mt-0.5 shrink-0 text-danger" aria-hidden />
       <span>
         {message || "Something went wrong while answering. Please try again."}
       </span>
@@ -45,7 +46,7 @@ function TraceCollapsible({ trace }: { trace: RetrievalTraceType }) {
   return (
     <div className="mt-4 xl:hidden">
       <details className="rounded-card border border-line bg-panel overflow-hidden">
-        <summary className="flex cursor-pointer items-center justify-between px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-ink">
+        <summary className="flex cursor-pointer items-center justify-between px-3 py-2 label text-ink">
           <span>Retrieval trace</span>
           <span className="text-faint">
             {trace.stages.length} stages · {trace.latency_ms.toFixed(1)}ms

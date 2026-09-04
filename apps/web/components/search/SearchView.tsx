@@ -56,7 +56,7 @@ export function SearchView() {
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && run()}
                 placeholder="Search the corpus for a chunk…"
-                className="h-10 w-full rounded-[3px] border border-line bg-panel pl-9 pr-3 text-sm text-ink placeholder:text-faint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40"
+                className="h-10 w-full rounded-card border border-line bg-panel pl-9 pr-3 text-sm text-ink placeholder:text-faint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base"
               />
             </div>
             <Button
@@ -83,7 +83,7 @@ export function SearchView() {
           {loading ? (
             <div className="flex items-center justify-center gap-2 py-20 text-faint">
               <Spinner />
-              <span className="font-mono text-[11px] uppercase tracking-[0.14em]">
+              <span className="label">
                 Retrieving
               </span>
             </div>

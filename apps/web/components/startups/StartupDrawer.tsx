@@ -48,18 +48,18 @@ export function StartupDrawer({
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-[3px] text-muted transition-colors hover:bg-panel-2 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-card text-muted transition-colors hover:bg-panel-2 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base"
           >
             <X size={16} />
           </button>
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5">
-          <h2 className="text-[20px] font-semibold tracking-tight text-ink">
+          <h2 className="text-lg font-semibold tracking-tight text-ink">
             {startup.name}
           </h2>
           {startup.one_liner && (
-            <p className="mt-1 text-[14px] text-muted">{startup.one_liner}</p>
+            <p className="mt-1 text-base text-muted">{startup.one_liner}</p>
           )}
 
           <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3">
@@ -72,7 +72,7 @@ export function StartupDrawer({
           {startup.description && (
             <div className="mt-5">
               <p className="label mb-1.5">About</p>
-              <p className="text-[14px] leading-relaxed text-muted">
+              <p className="text-base leading-relaxed text-muted">
                 {startup.description}
               </p>
             </div>
@@ -85,7 +85,7 @@ export function StartupDrawer({
                 {startup.tags.map((t) => (
                   <span
                     key={t}
-                    className="rounded-full border border-line px-2 py-0.5 font-mono text-[10px] text-faint"
+                    className="rounded-full border border-line px-2 py-0.5 font-mono text-xs text-faint"
                   >
                     {t}
                   </span>
@@ -105,7 +105,7 @@ export function StartupDrawer({
               href={startup.source_url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex h-8 items-center gap-1.5 rounded-[3px] border border-line px-3 text-[13px] text-muted transition-colors hover:bg-panel-2 hover:text-ink"
+              className="inline-flex h-8 items-center gap-1.5 rounded-card border border-line px-3 text-sm text-muted transition-colors hover:bg-panel-2 hover:text-ink"
             >
               <ExternalLink size={13} />
               {hostname(startup.source_url)}
@@ -121,7 +121,7 @@ function Meta({ label, value }: { label: string; value?: string }) {
   return (
     <div>
       <dt className="label">{label}</dt>
-      <dd className="mt-0.5 text-[13px] text-ink">{value || "—"}</dd>
+      <dd className="mt-0.5 text-sm text-ink">{value || "—"}</dd>
     </div>
   );
 }

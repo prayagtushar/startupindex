@@ -20,7 +20,7 @@ export function TopKControl({
   return (
     <div
       className={cn(
-        "flex items-center gap-0.5 rounded-[3px] border border-line bg-panel p-0.5",
+        "flex items-center gap-0.5 rounded-card border border-line bg-panel p-0.5",
         className,
       )}
     >
@@ -31,7 +31,7 @@ export function TopKControl({
       >
         <Minus size={13} />
       </Step>
-      <span className="min-w-7 text-center font-mono text-[12px] tabular-nums text-ink">
+      <span className="min-w-7 text-center font-mono text-sm tabular-nums text-ink">
         {value}
       </span>
       <Step
@@ -62,7 +62,7 @@ function Step({
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className="inline-flex h-6 w-6 items-center justify-center rounded-[2px] text-muted transition-colors hover:bg-panel-2 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40 disabled:pointer-events-none disabled:opacity-30"
+      className="inline-flex h-6 w-6 items-center justify-center rounded-card text-muted transition-colors hover:bg-panel-2 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base disabled:pointer-events-none disabled:opacity-30"
     >
       {children}
     </button>

@@ -15,21 +15,21 @@ export function StartupCard({
     <button
       type="button"
       onClick={onClick}
-      className="flex h-full flex-col rounded-card border border-line bg-panel p-4 text-left transition-colors hover:border-line-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40"
+      className="flex h-full flex-col rounded-card border border-line bg-panel p-4 text-left transition-colors hover:border-line-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base"
     >
       <div className="flex items-start justify-between gap-2">
-        <span className="text-[15px] font-semibold text-ink">
+        <span className="text-base font-semibold text-ink">
           {startup.name}
         </span>
         {funding && (
-          // Valuation is the only figure here, and the accent marks it as a measurement.
-          <span className="shrink-0 font-mono text-[10px] tabular-nums text-accent">
+          // A valuation is a figure, not a retrieval channel — the four hues are spoken for.
+          <span className="shrink-0 font-mono text-xs tabular-nums text-ink">
             {funding}
           </span>
         )}
       </div>
       {summary && (
-        <p className="mt-1 line-clamp-2 text-[13px] leading-snug text-muted">
+        <p className="mt-1 line-clamp-2 text-sm leading-snug text-muted">
           {summary}
         </p>
       )}
@@ -38,7 +38,7 @@ export function StartupCard({
           {startup.sectors.slice(0, 3).map((sec) => (
             <span
               key={sec}
-              className="rounded-full border border-line px-2 py-0.5 font-mono text-[9.5px] uppercase tracking-[0.1em] text-faint"
+              className="rounded-full border border-line px-2 py-0.5 label text-faint"
             >
               {sec}
             </span>

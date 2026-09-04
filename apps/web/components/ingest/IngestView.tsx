@@ -100,7 +100,7 @@ export function IngestView() {
       <div className="border-b border-line">
         <div className="mx-auto w-full max-w-3xl px-4 py-4">
           <p className="label mb-1">Data pipeline</p>
-          <p className="text-[13px] leading-relaxed text-muted">
+          <p className="text-sm leading-relaxed text-muted">
             Rebuild the corpus straight from the web: pull Indian startups from
             Wikipedia and Y Combinator, embed each, and load into Postgres —
             no terminal required.
@@ -120,7 +120,7 @@ export function IngestView() {
                 Stop
               </Button>
             )}
-            <span className="ml-auto font-mono text-[10px] uppercase tracking-[0.14em] text-faint">
+            <span className="ml-auto label text-faint">
               ~110 companies · ≈1–2 min
             </span>
           </div>
@@ -128,7 +128,7 @@ export function IngestView() {
           {!started ? (
             <div className="mt-10 flex flex-col items-center justify-center gap-3 py-12 text-center">
               <Database size={22} className="text-faint" />
-              <p className="text-[13px] text-faint">
+              <p className="text-sm text-faint">
                 Run the pipeline to (re)populate the corpus from live sources.
               </p>
             </div>
@@ -141,7 +141,7 @@ export function IngestView() {
                       <Marker status={statuses[key]} />
                       <span
                         className={cn(
-                          "font-mono text-[11px] uppercase tracking-[0.12em] transition-colors",
+                          "label transition-colors",
                           statuses[key] === "running"
                             ? "text-ink"
                             : statuses[key] === "done"
@@ -152,7 +152,7 @@ export function IngestView() {
                         {label}
                       </span>
                       {key === "scrape" && scrape && statuses.scrape === "running" && (
-                        <span className="ml-auto font-mono text-[10px] tabular-nums text-muted">
+                        <span className="ml-auto font-mono text-xs tabular-nums text-muted">
                           {scrape.done}/{scrape.total}
                           {scrape.name ? ` · ${scrape.name}` : ""}
                         </span>
@@ -173,12 +173,12 @@ export function IngestView() {
               {(result || error) && (
                 <div className="border-t border-line px-4 py-3">
                   {error ? (
-                    <div className="flex items-start gap-2 text-[13px] text-ink">
+                    <div className="flex items-start gap-2 text-sm text-ink">
                       <TriangleAlert size={15} className="mt-0.5 shrink-0 text-faint" />
                       <span>{error}</span>
                     </div>
                   ) : result ? (
-                    <div className="flex items-center gap-2 text-[13px] text-ink">
+                    <div className="flex items-center gap-2 text-sm text-ink">
                       <Check size={15} className="shrink-0 text-muted" />
                       <span>
                         Loaded{" "}

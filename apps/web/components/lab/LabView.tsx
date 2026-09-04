@@ -11,7 +11,14 @@ import { Spinner } from "@/components/ui/Spinner";
 import { StateView } from "@/components/ui/StateView";
 import { ExampleQueries, LAB_EXAMPLES } from "@/components/ui/ExampleQueries";
 import { ScoreBar } from "@/components/ui/ScoreBar";
-import { CHANNEL_HINTS, CHANNEL_LABELS, channelStyle, type Channel } from "@/lib/channels";
+import { ChannelTag } from "@/components/ui/ChannelTag";
+import {
+  CHANNEL_HINTS,
+  CHANNEL_LABELS,
+  CHANNEL_SIGILS,
+  channelStyle,
+  type Channel,
+} from "@/lib/channels";
 import { formatScore, truncate } from "@/lib/format";
 import type { LiveStage, Source } from "@/lib/types";
 import { cn } from "@/lib/cn";
@@ -59,7 +66,7 @@ export function LabView() {
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && start()}
               placeholder="Run one query through the whole pipeline…"
-              className="h-10 min-w-0 flex-1 rounded-[3px] border border-line bg-panel px-3 text-sm text-ink placeholder:text-faint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40"
+              className="h-10 min-w-0 flex-1 rounded-card border border-line bg-panel px-3 text-sm text-ink placeholder:text-faint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base"
             />
             <div className="flex items-center gap-2">
               <span className="label">Top K</span>
@@ -74,7 +81,7 @@ export function LabView() {
               {running ? <Spinner /> : "Run"}
             </Button>
           </div>
-          <p className="text-[12px] leading-relaxed text-muted">
+          <p className="text-sm leading-relaxed text-muted">
             One query, four stages, each shown the moment it finishes. Two searches
             run, fuse, and get re-scored — the arrows track every chunk&rsquo;s
             movement, and the timings are measured, not staged.
@@ -104,7 +111,7 @@ export function LabView() {
               <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
                 <p className="label">Query · “{ranQuery}”</p>
                 {error && (
-                  <p className="font-mono text-[11px] text-accent">{error}</p>
+                  <p className="font-mono text-xs text-danger">{error}</p>
                 )}
               </div>
               <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
@@ -169,33 +176,32 @@ function StageColumn({
       <div className="h-0.5 w-full" style={stage ? channelStyle(channel) : undefined} aria-hidden />
       <div className="border-b border-line px-3 py-2.5">
         <div className="flex items-center justify-between gap-2">
-          <span className="flex min-w-0 items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ink">
-            <span
-              className={cn(
-                "inline-block h-1.5 w-1.5 shrink-0 rounded-full",
-                pending && "animate-pulse-dot",
-              )}
-              style={stage || pending ? channelStyle(channel) : { backgroundColor: "var(--line-strong)" }}
-              aria-hidden
-            />
+          <span className="flex min-w-0 items-center gap-2 label text-ink">
+            {stage || pending ? (
+              <ChannelTag channel={channel} className={cn(pending && "animate-pulse-dot")} />
+            ) : (
+              <span className="sigil bg-line-strong text-faint" aria-hidden>
+                {CHANNEL_SIGILS[channel]}
+              </span>
+            )}
             <span className="truncate">
               {step}. {CHANNEL_LABELS[channel]}
             </span>
           </span>
           {stage ? (
             // The real elapsed time. This is why the columns arrive when they do.
-            <span className="shrink-0 font-mono text-[10px] tabular-nums text-muted">
+            <span className="shrink-0 font-mono text-xs tabular-nums text-muted">
               {Math.round(stage.elapsed_ms)}ms
             </span>
           ) : (
-            <span className="shrink-0 font-mono text-[10px] text-faint">
+            <span className="shrink-0 font-mono text-xs text-faint">
               {pending ? "running" : "queued"}
             </span>
           )}
         </div>
-        <p className="mt-1 text-[11px] leading-snug text-faint">{CHANNEL_HINTS[channel]}</p>
+        <p className="mt-1 text-xs leading-snug text-faint">{CHANNEL_HINTS[channel]}</p>
         {stage && (
-          <p className="mt-1 font-mono text-[9.5px] uppercase tracking-[0.1em] text-faint">
+          <p className="mt-1 label text-faint">
             {/* The funnel, stated: the early stages hold a hundred candidates and show eight. */}
             {stage.results.length === stage.total
               ? `${stage.total} kept`
@@ -207,12 +213,12 @@ function StageColumn({
 
       {!stage ? (
         <div className="px-3 py-8 text-center">
-          <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-faint">
+          <p className="label text-faint">
             {pending ? "Scoring" : "Waiting"}
           </p>
         </div>
       ) : stage.results.length === 0 ? (
-        <p className="px-3 py-6 text-center text-[12px] text-faint">
+        <p className="px-3 py-6 text-center text-sm text-faint">
           Nothing matched at this stage.
         </p>
       ) : (
@@ -220,19 +226,25 @@ function StageColumn({
           {stage.results.map((s, i) => (
             <li key={`${s.id}-${i}`} className="animate-rise-in px-3 py-2.5">
               <div className="flex items-center gap-2">
-                <span className="w-4 shrink-0 font-mono text-[11px] tabular-nums text-faint">
+                <span className="w-4 shrink-0 font-mono text-xs tabular-nums text-faint">
                   {i + 1}
                 </span>
                 <RankDelta current={i + 1} previous={ranks?.get(s.id)} hasBaseline={ranks != null} />
-                <span className="min-w-0 flex-1 truncate text-[13px] font-medium text-ink">
+                <span className="min-w-0 flex-1 truncate text-sm font-medium text-ink">
                   {s.startup_name}
                 </span>
-                <span className="shrink-0 font-mono text-[10px] tabular-nums text-muted">
+                <span className="shrink-0 font-mono text-xs tabular-nums text-muted">
                   {formatScore(s.score)}
                 </span>
               </div>
-              <ScoreBar score={s.score} maxScore={maxScore} channel={channel} className="mt-1.5" />
-              <p className="mt-1.5 text-[12px] leading-snug text-muted">
+              <ScoreBar
+                score={s.score}
+                maxScore={maxScore}
+                channel={channel}
+                label={`${CHANNEL_LABELS[channel]} score for ${s.startup_name}`}
+                className="mt-1.5"
+              />
+              <p className="mt-1.5 text-sm leading-snug text-muted">
                 {truncate(s.text, 100)}
               </p>
             </li>
@@ -257,21 +269,21 @@ function RankDelta({
   // This stage's effect on the ranking is the finding, so it is the one thing drawn in colour.
   if (previous == null) {
     return (
-      <span className="inline-flex w-9 shrink-0 justify-start font-mono text-[9px] uppercase tracking-wider text-keyword">
+      <span className="inline-flex w-9 shrink-0 justify-start label text-ink">
         new
       </span>
     );
   }
   const delta = previous - current;
   if (delta === 0) {
-    return <span className="w-9 shrink-0 font-mono text-[10px] text-faint">—</span>;
+    return <span className="w-9 shrink-0 font-mono text-xs text-faint">—</span>;
   }
   const up = delta > 0;
   return (
     <span
       className={cn(
-        "inline-flex w-9 shrink-0 items-center gap-0.5 font-mono text-[10px] font-medium tabular-nums",
-        up ? "text-accent" : "text-faint",
+        "inline-flex w-9 shrink-0 items-center gap-0.5 font-mono text-xs font-medium tabular-nums",
+        up ? "text-ink" : "text-faint",
       )}
       title={
         up

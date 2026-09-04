@@ -29,7 +29,7 @@ export function ModeSelector({
       role="radiogroup"
       aria-label="Retrieval mode"
       className={cn(
-        "flex gap-0.5 rounded-[3px] border border-line bg-panel p-0.5",
+        "flex gap-0.5 rounded-card border border-line bg-panel p-0.5",
         className,
       )}
     >
@@ -44,7 +44,7 @@ export function ModeSelector({
             title={FULL[mode]}
             onClick={() => onChange(mode)}
             className={cn(
-              "flex-1 rounded-[2px] px-2 py-1 font-mono text-[10.5px] uppercase tracking-[0.12em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40",
+              "flex-1 rounded-card px-2 py-1 label transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base",
               active
                 ? "bg-ink text-base"
                 : "text-faint hover:text-ink",

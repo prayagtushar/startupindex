@@ -19,7 +19,7 @@ function Citation({ n, source }: { n: number; source?: Source }) {
     ? `${source.startup_name} — ${truncate(source.text, 160)}`
     : `Source ${n}`;
   const chip = (
-    <span className="mx-0.5 inline-flex h-[1.15rem] min-w-[1.15rem] -translate-y-px items-center justify-center rounded-[5px] border border-line bg-panel-2 px-1 font-mono text-[10px] text-muted transition-colors hover:border-ink hover:text-ink">
+    <span className="mx-0.5 inline-flex h-[1.15rem] min-w-[1.15rem] -translate-y-px items-center justify-center rounded-card border border-line bg-panel-2 px-1 font-mono text-xs text-muted transition-colors hover:border-ink hover:text-ink">
       {n}
     </span>
   );
@@ -107,20 +107,22 @@ export function Answer({
         {children}
       </a>
     ),
+    // The model's markdown is a fragment inside the page, so its headings are
+    // demoted: an <h1> per streamed answer left the document with several.
     h1: ({ children }) => (
-      <h1 className="mb-2 mt-4 text-base font-semibold first:mt-0">
-        {cite(children)}
-      </h1>
-    ),
-    h2: ({ children }) => (
-      <h2 className="mb-2 mt-4 text-[15px] font-semibold first:mt-0">
-        {cite(children)}
-      </h2>
-    ),
-    h3: ({ children }) => (
-      <h3 className="mb-1.5 mt-3 text-sm font-semibold first:mt-0">
+      <h3 className="mb-2 mt-4 text-base font-semibold first:mt-0">
         {cite(children)}
       </h3>
+    ),
+    h2: ({ children }) => (
+      <h4 className="mb-2 mt-4 text-base font-semibold first:mt-0">
+        {cite(children)}
+      </h4>
+    ),
+    h3: ({ children }) => (
+      <h5 className="mb-1.5 mt-3 text-sm font-semibold first:mt-0">
+        {cite(children)}
+      </h5>
     ),
     blockquote: ({ children }) => (
       <blockquote className="mb-3 border-l-2 border-line pl-3 text-muted last:mb-0">
@@ -131,26 +133,26 @@ export function Answer({
       const isBlock = (className ?? "").includes("language-");
       if (isBlock) {
         return (
-          <code className="font-mono text-[12.5px] leading-relaxed">
+          <code className="font-mono text-sm leading-relaxed">
             {children}
           </code>
         );
       }
       return (
-        <code className="rounded bg-panel-2 px-1.5 py-0.5 font-mono text-[12.5px] text-ink">
+        <code className="rounded bg-panel-2 px-1.5 py-0.5 font-mono text-sm text-ink">
           {children}
         </code>
       );
     },
     pre: ({ children }) => (
-      <pre className="mb-3 overflow-x-auto rounded-[3px] border border-line bg-panel-2 p-3 last:mb-0">
+      <pre className="mb-3 overflow-x-auto rounded-card border border-line bg-panel-2 p-3 last:mb-0">
         {children}
       </pre>
     ),
     hr: () => <hr className="my-4 border-line" />,
     table: ({ children }) => (
       <div className="mb-3 overflow-x-auto last:mb-0">
-        <table className="w-full border-collapse text-[13px]">{children}</table>
+        <table className="w-full border-collapse text-sm">{children}</table>
       </div>
     ),
     th: ({ children }) => (
@@ -166,7 +168,7 @@ export function Answer({
   };
 
   return (
-    <div className="prose-human text-[15px] text-ink">
+    <div className="prose-human text-base text-ink">
       <Markdown remarkPlugins={[remarkGfm]} components={components}>
         {content}
       </Markdown>

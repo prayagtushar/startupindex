@@ -36,7 +36,7 @@ export function ChatInput({
   };
 
   return (
-    <div className="relative rounded-input border border-line bg-panel transition-shadow focus-within:ring-2 focus-within:ring-focus/30">
+    <div className="relative rounded-input border border-line bg-panel transition-colors focus-within:border-ink focus-within:ring-1 focus-within:ring-focus">
       <textarea
         ref={ref}
         value={value}
@@ -49,11 +49,11 @@ export function ChatInput({
         }}
         rows={1}
         placeholder="Ask about an Indian startup…"
-        className="block max-h-[200px] w-full resize-none bg-transparent px-4 pb-12 pt-3.5 text-[15px] leading-relaxed text-ink placeholder:text-faint focus:outline-none"
+        className="block max-h-[200px] w-full resize-none bg-transparent px-4 pb-12 pt-3.5 text-base leading-relaxed text-ink placeholder:text-faint focus:outline-none"
       />
 
       <div className="pointer-events-none absolute bottom-3.5 left-4 hidden sm:block">
-        <span className="font-mono text-[10px] tracking-wide text-faint">
+        <span className="font-mono text-xs tracking-wide text-faint">
           ↵ send&nbsp;·&nbsp;⇧↵ newline
         </span>
       </div>
@@ -64,7 +64,7 @@ export function ChatInput({
             type="button"
             onClick={onStop}
             aria-label="Stop generating"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-[3px] bg-ink text-base transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-card bg-ink text-base transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base"
           >
             <Square size={12} fill="currentColor" />
           </button>
@@ -74,7 +74,7 @@ export function ChatInput({
             onClick={submit}
             disabled={!value.trim()}
             aria-label="Send message"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-[3px] bg-ink text-base transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40 disabled:opacity-25"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-card bg-ink text-base transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base disabled:opacity-25"
           >
             <ArrowUp size={16} />
           </button>
