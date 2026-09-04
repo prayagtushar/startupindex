@@ -373,7 +373,7 @@ Supabase now serves the direct `db.<ref>` hostname over IPv6 only. Use the sessi
 - **Web:** Vercel.
 - **Database:** Supabase Postgres with pgvector.
 
-Full runbook, including cost ceilings and the Artifact Registry cleanup policy, is in the local `docs/DEPLOY.md`.
+Full runbook, including cost ceilings and the Artifact Registry cleanup policy, lives outside this repo at `02-learning/ai-eng-private/02-projects/startupindex/02-runbook-deploy.md`.
 
 ---
 
