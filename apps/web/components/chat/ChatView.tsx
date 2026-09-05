@@ -40,6 +40,15 @@ export function ChatView() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages.length, streaming?.content, streaming?.sources.length, pipeline]);
 
+  // One region, mounted for the life of the view. Writing the finished answer
+  // into it is what makes it announce; a region that mounts with its text
+  // already in place stays silent.
+  const lastAssistant = messages[messages.length - 1];
+  const announcement =
+    !isStreaming && lastAssistant?.role === "assistant" && lastAssistant.content
+      ? lastAssistant.content
+      : "";
+
   const handleFeedback = (msgId: string) => (f: "up" | "down") => {
     if (active) updateMessage(active.id, msgId, { feedback: f });
   };
@@ -53,6 +62,9 @@ export function ChatView() {
 
   return (
     <div className="flex h-full flex-col xl:flex-row">
+      <p aria-live="polite" aria-atomic="true" className="sr-only">
+        {announcement}
+      </p>
       <div className="flex min-h-0 flex-1 flex-col">
         <div className="min-h-0 flex-1 overflow-y-auto">
           {showEmpty ? (
@@ -83,7 +95,7 @@ export function ChatView() {
               isStreaming={isStreaming}
               autoFocusOnMount
             />
-            <p className="mt-2 text-center font-mono text-[10px] tracking-wide text-faint">
+            <p className="mt-2 text-center font-mono text-xs tracking-wide text-faint">
               Answers are grounded in the retrieved corpus and may be incomplete.
             </p>
           </div>

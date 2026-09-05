@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Plus,
@@ -14,6 +14,7 @@ import { Kbd } from "@/components/ui/Kbd";
 import { useConversations } from "@/lib/store/conversations";
 import { useSettings } from "@/lib/store/settings";
 import { useTheme } from "@/lib/theme";
+import { useFocusTrap } from "@/lib/hooks/useFocusTrap";
 import { RETRIEVAL_MODES } from "@/lib/types";
 import { cn } from "@/lib/cn";
 
@@ -24,6 +25,8 @@ interface Action {
   run: () => void;
 }
 
+const LISTBOX_ID = "command-palette-list";
+
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -33,14 +36,17 @@ export function CommandPalette() {
   const { setMode } = useSettings();
   const { toggle: toggleTheme } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  const close = useCallback(() => setOpen(false), []);
+  // Holds Tab inside the dialog, handles Escape, and restores focus on close.
+  useFocusTrap(dialogRef, open, close);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setOpen((o) => !o);
-      } else if (e.key === "Escape") {
-        setOpen(false);
       }
     };
     window.addEventListener("keydown", onKey);
@@ -57,7 +63,6 @@ export function CommandPalette() {
   }, [open]);
 
   const actions = useMemo<Action[]>(() => {
-    const close = () => setOpen(false);
     return [
       {
         id: "new",
@@ -97,7 +102,7 @@ export function CommandPalette() {
         },
       },
     ];
-  }, [router, newConversation, setMode, toggleTheme]);
+  }, [router, newConversation, setMode, toggleTheme, close]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -121,6 +126,8 @@ export function CommandPalette() {
     }
   };
 
+  const activeId = filtered[index] ? `cmd-${filtered[index].id}` : undefined;
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-[12vh]"
@@ -128,43 +135,52 @@ export function CommandPalette() {
       aria-modal="true"
       aria-label="Command palette"
     >
+      <div className="absolute inset-0 bg-ink/25 backdrop-blur-[2px]" onClick={close} />
       <div
-        className="absolute inset-0 bg-ink/25 backdrop-blur-[2px]"
-        onClick={() => setOpen(false)}
-      />
-      <div className="relative w-full max-w-lg overflow-hidden rounded-[3px] border border-line bg-panel shadow-[var(--shadow-panel)] animate-rise-in">
+        ref={dialogRef}
+        className="relative w-full max-w-lg overflow-hidden rounded-card border border-line bg-panel shadow-[var(--shadow-panel)] animate-rise-in"
+      >
         <div className="flex items-center gap-2 border-b border-line px-3">
-          <Search size={15} className="text-faint" />
+          <Search size={15} className="text-faint" aria-hidden />
           <input
             ref={inputRef}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={onKeyDown}
             placeholder="Type a command…"
-            className="h-11 w-full bg-transparent text-sm text-ink placeholder:text-faint focus:outline-none"
+            aria-label="Command"
+            // The list is elsewhere in the DOM, so the input has to name what it drives.
+            role="combobox"
+            aria-expanded
+            aria-controls={LISTBOX_ID}
+            aria-activedescendant={activeId}
+            aria-autocomplete="list"
+            className="h-11 w-full bg-transparent text-base text-ink placeholder:text-faint focus:outline-none"
           />
           <Kbd>ESC</Kbd>
         </div>
-        <ul className="max-h-72 overflow-y-auto p-1.5">
+        <ul id={LISTBOX_ID} role="listbox" aria-label="Commands" className="max-h-72 overflow-y-auto p-1.5">
           {filtered.length === 0 && (
-            <li className="px-3 py-6 text-center text-[13px] text-faint">
+            <li className="px-3 py-6 text-center text-sm text-faint">
               No matching commands.
             </li>
           )}
           {filtered.map((a, i) => {
             const Icon = a.icon;
+            const selected = i === index;
             return (
-              <li key={a.id}>
+              <li key={a.id} id={`cmd-${a.id}`} role="option" aria-selected={selected}>
                 <button
                   type="button"
+                  tabIndex={-1}
                   onMouseEnter={() => setIndex(i)}
                   onClick={a.run}
                   className={cn(
-                    "flex w-full items-center gap-2.5 rounded-[3px] px-3 py-2 text-left text-[13px] transition-colors",
-                    i === index ? "bg-panel-2 text-ink" : "text-muted",
+                    "flex w-full items-center gap-2.5 rounded-card px-3 py-2 text-left text-sm transition-colors",
+                    selected ? "bg-panel-2 text-ink" : "text-muted",
                   )}
                 >
-                  <Icon size={15} className="text-faint" />
+                  <Icon size={15} className="text-faint" aria-hidden />
                   {a.label}
                 </button>
               </li>

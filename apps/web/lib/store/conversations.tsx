@@ -11,9 +11,10 @@ import {
 import { newId } from "@/lib/id";
 import { truncate } from "@/lib/format";
 import type { RetrievalTrace, Source } from "@/lib/types";
+import { readStored, removeStored, writeStored } from "@/lib/storage";
 
-const STORAGE_KEY = "isra-conversations";
-const ACTIVE_KEY = "isra-active-conversation";
+const STORAGE_KEY = "conversations";
+const ACTIVE_KEY = "active-conversation";
 
 export type MessageStatus = "streaming" | "complete" | "error";
 export type Feedback = "up" | "down" | null;
@@ -73,10 +74,10 @@ export function ConversationsProvider({
   
   useEffect(() => {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = readStored(STORAGE_KEY);
       const parsed = raw ? (JSON.parse(raw) as Conversation[]) : [];
       if (Array.isArray(parsed)) setConversations(parsed);
-      const a = localStorage.getItem(ACTIVE_KEY);
+      const a = readStored(ACTIVE_KEY);
       if (a) setActiveIdState(a);
     } catch {
       
@@ -89,7 +90,7 @@ export function ConversationsProvider({
   useEffect(() => {
     if (!hydrated) return;
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(conversations));
+      writeStored(STORAGE_KEY, JSON.stringify(conversations));
     } catch {
       
     }
@@ -98,8 +99,8 @@ export function ConversationsProvider({
   useEffect(() => {
     if (!hydrated) return;
     try {
-      if (activeId) localStorage.setItem(ACTIVE_KEY, activeId);
-      else localStorage.removeItem(ACTIVE_KEY);
+      if (activeId) writeStored(ACTIVE_KEY, activeId);
+      else removeStored(ACTIVE_KEY);
     } catch {
       
     }

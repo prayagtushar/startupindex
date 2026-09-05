@@ -1,32 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
 import { CommandPalette } from "./CommandPalette";
+import { readStored, writeStored } from "@/lib/storage";
+import { useFocusTrap } from "@/lib/hooks/useFocusTrap";
 
-const COLLAPSE_KEY = "isra-sidebar-collapsed";
+const COLLAPSE_KEY = "sidebar-collapsed";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const drawerRef = useRef<HTMLElement>(null);
+
+  const closeDrawer = useCallback(() => setMobileOpen(false), []);
+  useFocusTrap(drawerRef, mobileOpen, closeDrawer);
 
   useEffect(() => {
-    try {
-      setCollapsed(localStorage.getItem(COLLAPSE_KEY) === "1");
-    } catch {
-      
-    }
+    setCollapsed(readStored(COLLAPSE_KEY) === "1");
   }, []);
 
   const toggleCollapsed = () =>
     setCollapsed((c) => {
       const next = !c;
-      try {
-        localStorage.setItem(COLLAPSE_KEY, next ? "1" : "0");
-      } catch {
-        
-      }
+      writeStored(COLLAPSE_KEY, next ? "1" : "0");
       return next;
     });
 
@@ -42,28 +40,25 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="fixed inset-0 z-40 lg:hidden">
           <div
             className="absolute inset-0 bg-ink/25 backdrop-blur-[2px]"
-            onClick={() => setMobileOpen(false)}
+            onClick={closeDrawer}
           />
-          <aside className="absolute left-0 top-0 h-full w-[280px] border-r border-line bg-base shadow-[var(--shadow-panel)]">
-            <Sidebar onNavigate={() => setMobileOpen(false)} />
+          <aside
+            ref={drawerRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation"
+            className="absolute left-0 top-0 h-full w-[280px] border-r border-line bg-base shadow-[var(--shadow-panel)]"
+          >
+            <Sidebar onNavigate={closeDrawer} />
           </aside>
         </div>
       )}
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <Topbar
-          onMenu={() => setMobileOpen(true)}
-          onToggleSidebar={toggleCollapsed}
-        />
+        <Topbar onMenu={() => setMobileOpen(true)} onToggleSidebar={toggleCollapsed} />
+        {/* No standing footer. What it said was one-time framing, and it now
+            lives on the arrival screen where a first-time visitor reads it. */}
         <main className="min-h-0 flex-1 overflow-hidden">{children}</main>
-        {/* The one line of framing that used to be a whole landing page. */}
-        <footer className="shrink-0 border-t border-line px-4 py-2.5">
-          <p className="font-mono text-[10px] leading-relaxed text-faint">
-            Vector and keyword search run side by side, fuse, and rerank. Every
-            answer cites the chunks it used. Reading is open; re-ingesting the
-            corpus needs a key.
-          </p>
-        </footer>
       </div>
 
       <CommandPalette />

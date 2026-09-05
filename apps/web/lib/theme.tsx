@@ -8,9 +8,11 @@ import {
   useState,
 } from "react";
 
+import { storageBootstrapSnippet, writeStored } from "@/lib/storage";
+
 export type Theme = "light" | "dark";
 
-const STORAGE_KEY = "isra-theme";
+const STORAGE_KEY = "theme";
 
 interface ThemeContextValue {
   theme: Theme;
@@ -32,11 +34,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const setTheme = useCallback((t: Theme) => {
     setThemeState(t);
     document.documentElement.classList.toggle("dark", t === "dark");
-    try {
-      localStorage.setItem(STORAGE_KEY, t);
-    } catch {
-      
-    }
+    writeStored(STORAGE_KEY, t);
   }, []);
 
   const toggle = useCallback(() => {
@@ -58,4 +56,4 @@ export function useTheme(): ThemeContextValue {
   return ctx;
 }
 
-export const themeBootstrapScript = `(function(){try{var t=localStorage.getItem('${STORAGE_KEY}');var m=window.matchMedia('(prefers-color-scheme: dark)').matches;if(t==='dark'||(t!=='light'&&m)){document.documentElement.classList.add('dark');}}catch(e){}})();`;
+export const themeBootstrapScript = `(function(){var read=${storageBootstrapSnippet};try{var t=read('${STORAGE_KEY}');var m=window.matchMedia('(prefers-color-scheme: dark)').matches;if(t==='dark'||(t!=='light'&&m)){document.documentElement.classList.add('dark');}}catch(e){}})();`;

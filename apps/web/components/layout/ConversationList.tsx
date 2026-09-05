@@ -18,15 +18,14 @@ export function ConversationList({ onNavigate }: { onNavigate?: () => void }) {
   } = useConversations();
   const router = useRouter();
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [confirmingId, setConfirmingId] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
 
-  
-  
   if (!hydrated) return null;
 
   if (conversations.length === 0) {
     return (
-      <p className="px-3 py-2 text-[12px] leading-relaxed text-faint">
+      <p className="px-3 py-2 text-sm leading-relaxed text-faint">
         Your conversations will appear here.
       </p>
     );
@@ -55,19 +54,53 @@ export function ConversationList({ onNavigate }: { onNavigate?: () => void }) {
               <input
                 autoFocus
                 value={draft}
+                aria-label="Conversation title"
                 onChange={(e) => setDraft(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") commit();
                   if (e.key === "Escape") setEditingId(null);
                 }}
-                className="h-8 min-w-0 flex-1 rounded-[2px] border border-line bg-panel px-2 text-[13px] text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40"
+                className="h-8 min-w-0 flex-1 rounded-card border border-line bg-panel px-2 text-sm text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base"
               />
               <SmallIcon label="Save" onClick={commit}>
-                <Check size={13} />
+                <Check size={14} />
               </SmallIcon>
               <SmallIcon label="Cancel" onClick={() => setEditingId(null)}>
-                <X size={13} />
+                <X size={14} />
               </SmallIcon>
+            </li>
+          );
+        }
+
+        // Deleting used to go through a native confirm() dialog, which broke out
+        // of the app's own surface. The confirmation now happens in place.
+        if (confirmingId === c.id) {
+          return (
+            <li
+              key={c.id}
+              className="flex items-center gap-2 rounded-card border border-line bg-panel-2 px-3 py-2"
+            >
+              <span className="min-w-0 flex-1 truncate text-sm text-ink">
+                Delete “{title}”?
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  deleteConversation(c.id);
+                  setConfirmingId(null);
+                }}
+                className="label shrink-0 rounded-card px-2 py-1 text-danger transition-colors hover:bg-danger-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+              >
+                Delete
+              </button>
+              <button
+                type="button"
+                autoFocus
+                onClick={() => setConfirmingId(null)}
+                className="label shrink-0 rounded-card px-2 py-1 transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+              >
+                Keep
+              </button>
             </li>
           );
         }
@@ -77,8 +110,9 @@ export function ConversationList({ onNavigate }: { onNavigate?: () => void }) {
             <button
               type="button"
               onClick={() => open(c.id)}
+              aria-current={active ? "page" : undefined}
               className={cn(
-                "flex w-full items-center gap-2 rounded-[2px] py-2 pl-3 pr-16 text-left text-[13px] transition-colors",
+                "flex w-full items-center gap-2 rounded-card py-2 pl-3 pr-20 text-left text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base",
                 active
                   ? "bg-panel-2 text-ink"
                   : "text-muted hover:bg-panel-2 hover:text-ink",
@@ -86,26 +120,25 @@ export function ConversationList({ onNavigate }: { onNavigate?: () => void }) {
             >
               <span className="min-w-0 flex-1 truncate">{title}</span>
             </button>
-            <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 font-mono text-[10px] text-faint group-hover:opacity-0">
+            <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 font-mono text-xs text-faint group-focus-within:opacity-0 group-hover:opacity-0">
               {relativeTime(c.updatedAt)}
             </span>
-            <div className="absolute right-1 top-1/2 hidden -translate-y-1/2 items-center gap-0.5 group-hover:flex">
+            {/* Kept in the DOM rather than mounted on hover, so a keyboard can reach them. */}
+            <div className="absolute right-1 top-1/2 flex -translate-y-1/2 items-center gap-0.5 opacity-0 transition-opacity focus-within:opacity-100 group-hover:opacity-100">
               <SmallIcon
-                label="Rename conversation"
+                label={`Rename “${title}”`}
                 onClick={() => {
                   setEditingId(c.id);
                   setDraft(c.title);
                 }}
               >
-                <Pencil size={12} />
+                <Pencil size={13} />
               </SmallIcon>
               <SmallIcon
-                label="Delete conversation"
-                onClick={() => {
-                  if (confirm("Delete this conversation?")) deleteConversation(c.id);
-                }}
+                label={`Delete “${title}”`}
+                onClick={() => setConfirmingId(c.id)}
               >
-                <Trash2 size={12} />
+                <Trash2 size={13} />
               </SmallIcon>
             </div>
           </li>
@@ -130,7 +163,8 @@ function SmallIcon({
       aria-label={label}
       title={label}
       onClick={onClick}
-      className="inline-flex h-6 w-6 items-center justify-center rounded-[2px] text-faint transition-colors hover:bg-line-strong hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus/40"
+      // 32px, not 24: the old target was smaller than a fingertip.
+      className="inline-flex h-8 w-8 items-center justify-center rounded-card text-faint transition-colors hover:bg-line-strong hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2 focus-visible:ring-offset-base"
     >
       {children}
     </button>

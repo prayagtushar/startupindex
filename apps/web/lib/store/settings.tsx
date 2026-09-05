@@ -8,8 +8,9 @@ import {
   useState,
 } from "react";
 import type { RetrievalMode } from "@/lib/types";
+import { readStored, writeStored } from "@/lib/storage";
 
-const STORAGE_KEY = "isra-settings";
+const STORAGE_KEY = "settings";
 
 interface Settings {
   mode: RetrievalMode;
@@ -28,11 +29,7 @@ interface SettingsContextValue extends Settings {
 const SettingsContext = createContext<SettingsContextValue | null>(null);
 
 function persist(next: Settings) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-  } catch {
-    
-  }
+  writeStored(STORAGE_KEY, JSON.stringify(next));
 }
 
 function clampTopK(n: number): number {
@@ -45,7 +42,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = readStored(STORAGE_KEY);
       if (raw) setSettings({ ...DEFAULTS, ...JSON.parse(raw) });
     } catch {
       
