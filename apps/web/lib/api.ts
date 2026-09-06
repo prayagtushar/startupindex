@@ -17,8 +17,13 @@ import type {
  * With the API down, a plain fetch never settles and the page sits on its
  * spinner with no way out. Every read gets a deadline so the failure reaches
  * the UI as an error state a visitor can retry.
+ *
+ * The deadline has to clear a Cloud Run cold start, which is about 30 seconds
+ * while the two BGE models load. At 15s a first-time visitor landing on a cold
+ * instance got the error instead of the corpus; the retry then succeeded in two
+ * seconds, which is the tell that the timeout was the problem and not the API.
  */
-const REQUEST_TIMEOUT_MS = 15_000;
+const REQUEST_TIMEOUT_MS = 45_000;
 
 export async function fetchWithTimeout(
   input: string,

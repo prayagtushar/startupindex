@@ -365,7 +365,7 @@ All `.env*` files are gitignored. Do not commit secrets.
 
 Build the image with [`infra/cloudbuild.yaml`](infra/cloudbuild.yaml), not `gcloud builds submit --tag`. The Dockerfile uses `RUN --mount=type=cache`, which needs BuildKit, and the default builder does not enable it. The config also stays on the default machine type so builds fall inside the free 120 build-minutes per day.
 
-Deploy with `--min-instances=0` and no load balancer. An external HTTP load balancer bills around $18 a month whether or not anyone visits and does not scale to zero. At `min-instances=0` with CPU throttling left on, Cloud Run bills only while a request runs. The cost is a cold start of about 30 seconds while the two BGE models load, which `.github/workflows/keep-warm.yml` covers by pinging `/health` every ten minutes.
+Deploy with `--min-instances=0` and no load balancer. An external HTTP load balancer bills around $18 a month whether or not anyone visits and does not scale to zero. At `min-instances=0` with CPU throttling left on, Cloud Run bills only while a request runs. The cost is a cold start of about 30 seconds while the two BGE models load. `.github/workflows/keep-warm.yml` asks for a ping every ten minutes, but GitHub throttles scheduled workflows on low-activity repos and in practice runs it a couple of times a day, so treat cold starts as something visitors will hit rather than something that workflow prevents. Client reads allow 45s (`REQUEST_TIMEOUT_MS`) so a cold instance still answers instead of surfacing a timeout; an external pinger would be the fix if it matters.
 
 Supabase now serves the direct `db.<ref>` hostname over IPv6 only. Use the session pooler on port 5432; the transaction pooler on 6543 breaks psycopg3's prepared statements.
 
