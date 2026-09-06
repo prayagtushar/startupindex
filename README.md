@@ -69,6 +69,12 @@ pulling in the LangChain dependency family for one function.
 **Streaming.** `/chat` sends sources over SSE before generation starts, so the
 page fills in as retrieval lands.
 
+**A palette that is checked, not eyeballed.** Five colours, one job each: four
+name the retrieval channels, one means failure. Every one clears 4.6:1 against
+all three surfaces in both light and dark, and each channel also carries a
+two-letter sigil, because the four hues sit at equal luminance and would be
+indistinguishable in grayscale.
+
 ## How it works
 
 ```mermaid

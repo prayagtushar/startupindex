@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap">
+  <style>
+    body { margin: 0; }
+    * { box-sizing: border-box; }
+    a { color: #ab452b; text-decoration: none; }
+    a:hover { color: #8a3722; }
+    .mono { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-feature-settings: "tnum" 1; }
+    .sans { font-family: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    .label { font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+    .sigil { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 16px; border-radius: 2px; font-family: "Geist Mono", monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; color: #fffdf7; flex-shrink: 0; }
+    .icon-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 3px; }
+  </style>
+</helmet>
+
+<div class="mono" style="width: 1440px; height: 900px; display: flex; background: #f6f3ec; color: #1b1a15; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; overflow: hidden;">
+
+  <aside style="width: 264px; flex-shrink: 0; border-right: 1px solid rgba(27,26,21,0.14); display: flex; flex-direction: column;">
+    <div style="height: 52px; flex-shrink: 0; display: flex; align-items: center; gap: 10px; padding: 0 16px;">
+      <span style="width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #1b1a15; color: #f6f3ec; border-radius: 3px;">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0.5l1.7 4.1 4.1 1.7-4.1 1.7L8 12.1 6.3 8 2.2 6.3 6.3 4.6 8 0.5z"></path><circle cx="2.4" cy="13.4" r="1.25"></circle><circle cx="13.6" cy="13.4" r="1.25"></circle></svg>
+      </span>
+      <span class="label" style="color: #1b1a15;">StartupIndex</span>
+    </div>
+    <div style="padding: 0 12px 8px;">
+      <div style="height: 36px; display: flex; align-items: center; gap: 8px; padding: 0 12px; border: 1px solid rgba(27,26,21,0.14); border-radius: 3px; font-size: 13px; font-weight: 500;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6a6557" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+        New chat
+      </div>
+    </div>
+    <nav style="display: flex; flex-direction: column; gap: 2px; padding: 0 12px;">
+      <div style="display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 3px; font-size: 13px; color: #6b6455;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6a6557" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        Chat
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 3px; font-size: 13px; background: #ebe5d8; color: #1b1a15; font-weight: 500;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1b1a15" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18M15 3v18"></path></svg>
+        Retrieval Lab
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 3px; font-size: 13px; color: #6b6455;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6a6557" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+        Search
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 3px; font-size: 13px; color: #6b6455;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6a6557" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+        Startups
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 3px; font-size: 13px; color: #6b6455;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6a6557" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"></path></svg>
+        Data
+      </div>
+    </nav>
+    <div style="flex: 1;"></div>
+    <div style="border-top: 1px solid rgba(27,26,21,0.14); padding: 12px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <p class="label" style="margin: 0; color: #6a6557;">Retrieval</p>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <span class="label" style="color: #6a6557;">Top K</span>
+          <div style="display: flex; align-items: center; gap: 2px; padding: 2px; border: 1px solid rgba(27,26,21,0.14); border-radius: 3px; background: #fffdf7;">
+            <span style="display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; color: #6b6455;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg></span>
+            <span style="min-width: 24px; text-align: center; font-size: 13px;">8</span>
+            <span style="display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; color: #6b6455;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span>
+          </div>
+        </div>
+      </div>
+      <div style="border-top: 1px solid rgba(27,26,21,0.14); padding-top: 12px; display: flex; align-items: center; justify-content: space-between;">
+        <span class="label" style="color: #6a6557;">Theme</span>
+        <span class="icon-btn" style="color: #6b6455;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></span>
+      </div>
+    </div>
+  </aside>
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
+    <header style="height: 52px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid rgba(27,26,21,0.14);">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="icon-btn" style="color: #6b6455;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18"></path></svg></span>
+        <span class="label" style="color: #6b6455;">Retrieval Lab</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="display: flex; gap: 4px;">
+          <kbd style="display: inline-flex; align-items: center; justify-content: center; height: 20px; min-width: 20px; padding: 0 5px; border: 1px solid rgba(27,26,21,0.14); border-radius: 3px; background: #fffdf7; font-family: inherit; font-size: 11px; color: #6a6557;">⌘</kbd>
+          <kbd style="display: inline-flex; align-items: center; justify-content: center; height: 20px; min-width: 20px; padding: 0 5px; border: 1px solid rgba(27,26,21,0.14); border-radius: 3px; background: #fffdf7; font-family: inherit; font-size: 11px; color: #6a6557;">K</kbd>
+        </span>
+        <span class="icon-btn" style="color: #6b6455;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></span>
+      </div>
+    </header>
+
+    <div style="border-bottom: 1px solid rgba(27,26,21,0.14); padding: 16px 32px;">
+      <div style="display: flex; gap: 8px;">
+        <div class="sans" style="flex: 1; height: 40px; display: flex; align-items: center; padding: 0 14px; border: 1px solid rgba(27,26,21,0.14); border-radius: 3px; background: #fffdf7; font-size: 15px; color: #1b1a15;">Which companies offer payment gateways?</div>
+        <div style="height: 40px; display: flex; align-items: center; padding: 0 20px; border-radius: 3px; background: #1b1a15; color: #f6f3ec; font-size: 13px; font-weight: 500;">Run</div>
+      </div>
+    </div>
+
+    <div style="flex: 1; min-height: 0; overflow: hidden; padding: 20px 32px;">
+      <p class="label" style="margin: 0 0 14px; color: #6a6557;">Query · “Which companies offer payment gateways?”</p>
+
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
+        <sc-for list="{{cols}}" as="col" hint-placeholder-count="4">
+          <div style="border: 1px solid rgba(27,26,21,0.14); border-radius: 3px; background: #fffdf7; overflow: hidden; display: flex; flex-direction: column;">
+            <div style="height: 2px; background: {{col.hue}};"></div>
+            <div style="border-bottom: 1px solid rgba(27,26,21,0.14); padding: 10px 12px; display: flex; flex-direction: column; gap: 6px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                <span style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                  <span class="sigil" style="background: {{col.hue}};">{{col.sigil}}</span>
+                  <span class="label" style="color: #1b1a15; white-space: nowrap;">{{col.step}}. {{col.name}}</span>
+                </span>
+                <span style="flex-shrink: 0; font-size: 11px; color: #6b6455;">{{col.ms}}</span>
+              </div>
+              <p class="sans" style="margin: 0; font-size: 11px; line-height: 1.4; color: #6a6557;">{{col.hint}}</p>
+              <p class="label" style="margin: 0; color: #6a6557;">{{col.funnel}}</p>
+            </div>
+            <div style="padding: 10px 12px; display: flex; flex-direction: column; gap: 8px;">
+              <sc-for list="{{col.rows}}" as="r" hint-placeholder-count="4">
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                    <span style="display: flex; align-items: baseline; gap: 6px; min-width: 0;">
+                      <span style="font-size: 11px; color: #6a6557; flex-shrink: 0;">{{r.rank}}</span>
+                      <span class="sans" style="font-size: 13px; color: #1b1a15; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{r.name}}</span>
+                    </span>
+                    <span style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
+                      <span style="font-size: 11px; color: {{r.moveColor}};">{{r.move}}</span>
+                      <span style="font-size: 11px; color: #6b6455;">{{r.score}}</span>
+                    </span>
+                  </div>
+                  <div style="height: 5px; width: 100%; border-radius: 999px; background: #ebe5d8; overflow: hidden;">
+                    <div style="height: 100%; border-radius: 999px; width: {{r.pct}}; background: {{col.hue}};"></div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const HUE = { vector: '#1d716c', keyword: '#78630f', fusion: '#ab452b', rerank: '#1b1a15' };
+    // A rank move is emphasis, not a fifth hue: ink rises, faint recedes.
+    // The four hues stay spoken for by the four retrieval channels.
+    const UP = '#1b1a15', DOWN = '#6a6557', FLAT = '#6a6557';
+    const row = (rank, name, score, pct, move, moveColor) => ({ rank: rank, name: name, score: score, pct: pct, move: move, moveColor: moveColor || FLAT });
+
+    return {
+      cols: [
+        { step: '1', name: 'Vector', sigil: 'VE', hue: HUE.vector, ms: '41ms',
+          hint: 'Cosine similarity over pgvector embeddings', funnel: '8 of 112 shown',
+          rows: [ row('01','Razorpay','0.812','100%','—'), row('02','PhonePe','0.664','82%','—'),
+                  row('03','Paytm','0.641','79%','—'), row('04','Cashfree','0.602','74%','—') ] },
+        { step: '2', name: 'Keyword', sigil: 'KW', hue: HUE.keyword, ms: '9ms',
+          hint: 'Postgres full-text search over tsvector', funnel: '8 of 112 shown',
+          rows: [ row('01','Cashfree','0.741','100%','—'), row('02','Razorpay','0.598','81%','—'),
+                  row('03','BillDesk','0.544','73%','—'), row('04','PayU','0.501','68%','—') ] },
+        { step: '3', name: 'RRF fusion', sigil: 'FU', hue: HUE.fusion, ms: '2ms',
+          hint: 'Reciprocal rank fusion of both lists', funnel: '8 of 16 shown',
+          rows: [ row('01','Razorpay','0.032','100%','+1', UP), row('02','Cashfree','0.030','94%','+2', UP),
+                  row('03','PhonePe','0.024','75%','−1', DOWN), row('04','PayU','0.021','66%','—') ] },
+        { step: '4', name: 'BGE rerank', sigil: 'RR', hue: HUE.rerank, ms: '132ms',
+          hint: 'Cross-encoder scoring of the fused list', funnel: '3 served',
+          rows: [ row('01','Razorpay','0.947','100%','—'), row('02','Cashfree','0.903','95%','—'),
+                  row('03','PayU','0.611','65%','+1', UP) ] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

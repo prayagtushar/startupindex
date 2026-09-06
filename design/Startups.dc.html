@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap">
+  <style>
+    body { margin: 0; }
+    * { box-sizing: border-box; }
+    a { color: #ab452b; text-decoration: none; }
+    a:hover { color: #8a3722; }
+    .mono { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-feature-settings: "tnum" 1; }
+    .sans { font-family: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    .label { font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+    .chip { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; font-family: "Geist Mono", monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .icon-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 3px; }
+  </style>
+</helmet>
+
+<div class="mono" style="width: 1440px; height: 900px; display: flex; background: #f6f3ec; color: #1b1a15; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; overflow: hidden;">
+
+  <aside style="width: 264px; flex-shrink: 0; border-right: 1px solid rgba(27,26,21,0.14); display: flex; flex-direction: column;">
+    <div style="height: 52px; flex-shrink: 0; display: flex; align-items: center; gap: 10px; padding: 0 16px;">
+      <span style="width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #1b1a15; color: #f6f3ec; border-radius: 3px;">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0.5l1.7 4.1 4.1 1.7-4.1 1.7L8 12.1 6.3 8 2.2 6.3 6.3 4.6 8 0.5z"></path><circle cx="2.4" cy="13.4" r="1.25"></circle><circle cx="13.6" cy="13.4" r="1.25"></circle></svg>
+      </span>
+      <span class="label" style="color: #1b1a15;">StartupIndex</span>
+    </div>
+    <div style="padding: 0 12px 8px;">
+      <div style="height: 36px; display: flex; align-items: center; gap: 8px; padding: 0 12px; border: 1px solid rgba(27,26,21,0.14); border-radius: 3px; font-size: 13px; font-weight: 500;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6a6557" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+        New chat
+      </div>
+    </div>
+    <nav style="display: flex; flex-direction: column; gap: 2px; padding: 0 12px;">
+      <div style="display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 3px; font-size: 13px; color: #6b6455;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6a6557" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        Chat
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 3px; font-size: 13px; color: #6b6455;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6a6557" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18M15 3v18"></path></svg>
+        Retrieval Lab
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 3px; font-size: 13px; color: #6b6455;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6a6557" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+        Search
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 3px; font-size: 13px; background: #ebe5d8; color: #1b1a15; font-weight: 500;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1b1a15" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+        Startups
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 3px; font-size: 13px; color: #6b6455;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6a6557" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"></path></svg>
+        Data
+      </div>
+    </nav>
+    <div style="flex: 1;"></div>
+    <div style="border-top: 1px solid rgba(27,26,21,0.14); padding: 12px; display: flex; align-items: center; justify-content: space-between;">
+      <span class="label" style="color: #6a6557;">Theme</span>
+      <span class="icon-btn" style="color: #6b6455;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></span>
+    </div>
+  </aside>
+
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
+    <header style="height: 52px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid rgba(27,26,21,0.14);">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="icon-btn" style="color: #6b6455;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18"></path></svg></span>
+        <span class="label" style="color: #6b6455;">Startups</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="display: flex; gap: 4px;">
+          <kbd style="display: inline-flex; align-items: center; justify-content: center; height: 20px; min-width: 20px; padding: 0 5px; border: 1px solid rgba(27,26,21,0.14); border-radius: 3px; background: #fffdf7; font-family: inherit; font-size: 11px; color: #6a6557;">⌘</kbd>
+          <kbd style="display: inline-flex; align-items: center; justify-content: center; height: 20px; min-width: 20px; padding: 0 5px; border: 1px solid rgba(27,26,21,0.14); border-radius: 3px; background: #fffdf7; font-family: inherit; font-size: 11px; color: #6a6557;">K</kbd>
+        </span>
+        <span class="icon-btn" style="color: #6b6455;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></span>
+      </div>
+    </header>
+
+    <div style="border-bottom: 1px solid rgba(27,26,21,0.14); padding: 16px 32px;">
+      <div style="max-width: 1040px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px;">
+        <div style="position: relative;">
+          <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); display: flex; color: #6a6557;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+          </span>
+          <div class="sans" style="height: 40px; display: flex; align-items: center; padding: 0 12px 0 36px; border: 1px solid rgba(27,26,21,0.14); border-radius: 3px; background: #fffdf7; font-size: 15px; color: #6a6557;">Search startups by name or description…</div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+          <sc-for list="{{sectors}}" as="s" hint-placeholder-count="8">
+            <span class="chip" style="background: {{s.bg}}; color: {{s.fg}}; border: 1px solid {{s.border}};">{{s.name}} <span style="opacity: 0.65;">{{s.count}}</span></span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex: 1; min-height: 0; overflow: hidden; padding: 22px 32px;">
+      <div style="max-width: 1040px; margin: 0 auto;">
+        <p class="label" style="margin: 0 0 14px; color: #6a6557;">18 Fintech startups</p>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
+          <sc-for list="{{cards}}" as="c" hint-placeholder-count="9">
+            <div style="display: flex; flex-direction: column; gap: 8px; border: 1px solid rgba(27,26,21,0.14); border-radius: 3px; background: #fffdf7; padding: 16px;">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
+                <span class="sans" style="font-size: 15px; font-weight: 600; color: #1b1a15;">{{c.name}}</span>
+                <!-- Ink, not a hue: a valuation is a figure, and the four hues belong to retrieval. -->
+                <span style="flex-shrink: 0; font-size: 11px; color: #1b1a15;">{{c.funding}}</span>
+              </div>
+              <p class="sans" style="margin: 0; font-size: 13px; line-height: 1.45; color: #6b6455;">{{c.summary}}</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; padding-top: 4px;">
+                <sc-for list="{{c.tags}}" as="t" hint-placeholder-count="2">
+                  <span style="display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border: 1px solid rgba(27,26,21,0.14); border-radius: 999px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: #6a6557;">{{t}}</span>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const on  = { bg: '#1b1a15', fg: '#f6f3ec', border: '#1b1a15' };
+    const off = { bg: 'transparent', fg: '#6b6455', border: 'rgba(27,26,21,0.14)' };
+    const sec = (name, count, active) => ({ name: name, count: count, bg: (active?on:off).bg, fg: (active?on:off).fg, border: (active?on:off).border });
+
+    return {
+      sectors: [
+        sec('All', '112', false), sec('Fintech', '18', true), sec('SaaS', '14', false),
+        sec('Commerce', '11', false), sec('Logistics', '9', false), sec('Health', '8', false),
+        sec('Edtech', '7', false), sec('Mobility', '6', false)
+      ],
+      cards: [
+        { name: 'Razorpay',  funding: '$7.5B', summary: 'Payments platform for Indian businesses — gateway, payouts and business banking.', tags: ['Fintech', 'Payments'] },
+        { name: 'Zerodha',   funding: '$2.0B', summary: 'Discount stockbroker; flat-fee trading for retail investors in India.', tags: ['Fintech', 'Investing'] },
+        { name: 'CRED',      funding: '$6.4B', summary: 'Credit-card bill payments and rewards for high-credit-score members.', tags: ['Fintech', 'Consumer'] },
+        { name: 'PhonePe',   funding: '$12B',  summary: 'UPI payments and financial services, spun out of Flipkart in 2022.', tags: ['Fintech', 'Payments'] },
+        { name: 'Cashfree',  funding: '$200M', summary: 'Collections and disbursals through one API, used by marketplaces and lenders.', tags: ['Fintech', 'Payments'] },
+        { name: 'Groww',     funding: '$3.0B', summary: 'Mobile-first investing app for mutual funds, stocks and fixed deposits.', tags: ['Fintech', 'Investing'] },
+        { name: 'Slice',     funding: '$1.5B', summary: 'Credit and spending card aimed at first-time borrowers under thirty.', tags: ['Fintech', 'Credit'] },
+        { name: 'Jupiter',   funding: '$711M', summary: 'Neobank layering budgeting and rewards over partner-bank accounts.', tags: ['Fintech', 'Banking'] },
+        { name: 'KreditBee', funding: '$680M', summary: 'Personal lending for salaried and self-employed borrowers.', tags: ['Fintech', 'Lending'] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

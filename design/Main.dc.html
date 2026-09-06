@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap">
+  <style>
+    body { margin: 0; }
+    * { box-sizing: border-box; }
+    a { color: #ab452b; text-decoration: none; }
+    a:hover { color: #8a3722; }
+    .mono { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-feature-settings: "tnum" 1; }
+    .sans { font-family: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    /* One label idiom: 11px / 0.12em / uppercase. One value, not four. */
+    .label { font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+    .nav-row { display: flex; align-items: center; gap: 10px; height: 34px; padding: 0 12px; border-radius: 3px; font-size: 13px; }
+    .icon-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 3px; }
+    .kbd { display: inline-flex; align-items: center; justify-content: center; height: 20px; min-width: 20px; padding: 0 5px; border-radius: 3px; font-family: inherit; font-size: 11px; }
+  </style>
+</helmet>
+
+<div class="mono" style="{{vars}}; width: 1440px; height: 900px; display: flex; background: var(--base); color: var(--ink); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; overflow: hidden;">
+
+  <!-- ── Sidebar ─────────────────────────────────────────────── -->
+  <aside style="width: 264px; flex-shrink: 0; border-right: 1px solid var(--line); display: flex; flex-direction: column; background: var(--base);">
+
+    <div style="height: 52px; flex-shrink: 0; display: flex; align-items: center; gap: 10px; padding: 0 16px;">
+      <span style="width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--ink); color: var(--base); border-radius: 3px;">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M8 0.5l1.7 4.1 4.1 1.7-4.1 1.7L8 12.1 6.3 8 2.2 6.3 6.3 4.6 8 0.5z"></path>
+          <circle cx="2.4" cy="13.4" r="1.25"></circle>
+          <circle cx="13.6" cy="13.4" r="1.25"></circle>
+        </svg>
+      </span>
+      <span class="label" style="color: var(--ink);">StartupIndex</span>
+    </div>
+
+    <div style="padding: 0 12px 8px;">
+      <div style="height: 36px; width: 100%; display: flex; align-items: center; gap: 8px; padding: 0 12px; border: 1px solid var(--line); border-radius: 3px; color: var(--ink); font-size: 13px; font-weight: 500;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+        New chat
+      </div>
+    </div>
+
+    <nav style="display: flex; flex-direction: column; gap: 2px; padding: 0 12px 4px;">
+      <div class="nav-row" style="background: var(--panel-2); color: var(--ink); font-weight: 500;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        Chat
+      </div>
+      <div class="nav-row" style="color: var(--muted);">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18M15 3v18"></path></svg>
+        Retrieval Lab
+      </div>
+      <div class="nav-row" style="color: var(--muted);">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+        Search
+      </div>
+      <div class="nav-row" style="color: var(--muted);">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+        Startups
+      </div>
+      <div class="nav-row" style="color: var(--muted);">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"></path></svg>
+        Data
+      </div>
+    </nav>
+
+    <div style="flex: 1; min-height: 0; padding: 12px 12px 0;">
+      <p class="label" style="margin: 0 0 6px; padding: 0 12px; color: var(--faint);">History</p>
+      <p class="sans" style="margin: 0; padding: 4px 12px; font-size: 13px; line-height: 1.5; color: var(--faint);">Your conversations will appear here.</p>
+    </div>
+
+    <!-- Retrieval controls live here and only here — the topbar no longer repeats the mode. -->
+    <div style="border-top: 1px solid var(--line); padding: 12px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <p class="label" style="margin: 0; color: var(--faint);">Retrieval</p>
+
+        <div style="display: flex; gap: 2px; padding: 2px; border: 1px solid var(--line); border-radius: 3px; background: var(--panel);">
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; height: 26px; border-radius: 2px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--faint);">Vector</div>
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; height: 26px; border-radius: 2px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; background: var(--ink); color: var(--base);">Hybrid</div>
+          <div style="flex: 1; display: flex; align-items: center; justify-content: center; height: 26px; border-radius: 2px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--faint);">Rerank</div>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <span class="label" style="color: var(--faint);">Top K</span>
+          <div style="display: flex; align-items: center; gap: 2px; padding: 2px; border: 1px solid var(--line); border-radius: 3px; background: var(--panel);">
+            <span style="display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 2px; color: var(--muted);">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg>
+            </span>
+            <span style="min-width: 24px; text-align: center; font-size: 13px; color: var(--ink);">5</span>
+            <span style="display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 2px; color: var(--muted);">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+            </span>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <span class="label" style="color: var(--faint);">Trace</span>
+          <div style="width: 40px; height: 24px; border-radius: 999px; background: var(--ink); display: flex; align-items: center; padding: 0 4px; justify-content: flex-end;">
+            <span style="width: 16px; height: 16px; border-radius: 999px; background: var(--base); display: block;"></span>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid var(--line); padding-top: 12px; display: flex; align-items: center; justify-content: space-between;">
+        <span class="label" style="color: var(--faint);">Theme</span>
+        <span class="icon-btn" style="color: var(--muted);">
+          <sc-if value="{{dark}}" hint-placeholder-val="{{false}}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"></path></svg>
+            <svg slot="else" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+          </sc-if>
+        </span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main column ─────────────────────────────────────────── -->
+  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column;">
+
+    <header style="height: 52px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--line);">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="icon-btn" style="color: var(--muted);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18"></path></svg>
+        </span>
+        <span class="label" style="color: var(--muted);">Chat</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="display: flex; gap: 4px;">
+          <kbd class="kbd" style="border: 1px solid var(--line); background: var(--panel); color: var(--faint);">⌘</kbd>
+          <kbd class="kbd" style="border: 1px solid var(--line); background: var(--panel); color: var(--faint);">K</kbd>
+        </span>
+        <span class="icon-btn" style="color: var(--muted);">
+          <sc-if value="{{dark}}" hint-placeholder-val="{{false}}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"></path></svg>
+            <svg slot="else" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+          </sc-if>
+        </span>
+      </div>
+    </header>
+
+    <div style="flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px;">
+      <div style="width: 100%; max-width: 660px;">
+        <h1 style="margin: 0; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 32px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; color: var(--ink);">StartupIndex</h1>
+        <p class="label" style="margin: 10px 0 0; color: var(--faint);">112 startups · Y Combinator + Wikipedia · 384-dim embeddings</p>
+        <p class="sans" style="margin: 18px 0 0; max-width: 560px; font-size: 15px; line-height: 1.6; color: var(--muted); text-wrap: pretty;">Ask a question and vector search and keyword search run side by side, fuse, and rerank. Every answer cites the chunks it used, and when the corpus cannot answer, it says so instead of guessing.</p>
+
+        <p class="label" style="margin: 32px 0 12px; color: var(--faint);">Try one</p>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line);">
+          <sc-for list="{{examples}}" as="ex" hint-placeholder-count="4">
+            <div style="background: var(--panel); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px;">
+              <span class="sans" style="font-size: 13px; line-height: 1.4; color: var(--ink);">{{ex.q}}</span>
+              <span style="font-size: 11px; color: var(--faint);">{{ex.note}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex-shrink: 0; border-top: 1px solid var(--line); padding: 16px 32px 20px;">
+      <div style="max-width: 660px; margin: 0 auto;">
+        <div style="position: relative; border: 1px solid var(--line-strong); border-radius: 3px; background: var(--panel);">
+          <div class="sans" style="padding: 14px 16px 44px; font-size: 15px; line-height: 1.6; color: var(--faint);">Ask about an Indian startup…</div>
+          <span style="position: absolute; left: 16px; bottom: 14px; font-size: 11px; color: var(--faint);">↵ send · ⇧↵ newline</span>
+          <span style="position: absolute; right: 10px; bottom: 10px; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 3px; background: var(--ink); color: var(--base);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+          </span>
+        </div>
+        <p style="margin: 10px 0 0; text-align: center; font-size: 11px; color: var(--faint);">Answers are grounded in the retrieved corpus and may be incomplete.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const dark = this.props.dark ?? false;
+
+    // The redesigned token set. Every channel hue clears 4.6:1 on all three
+    // surfaces in BOTH themes, so nothing reads weaker after a theme switch.
+    const light = {
+      base: '#f6f3ec', panel: '#fffdf7', panel2: '#ebe5d8',
+      ink: '#1b1a15', muted: '#6b6455', faint: '#6a6557',
+      line: 'rgba(27,26,21,0.14)', lineStrong: 'rgba(27,26,21,0.28)',
+      vector: '#1d716c', keyword: '#78630f', fusion: '#ab452b', rerank: '#1b1a15', danger: '#bc312c'
+    };
+    const night = {
+      base: '#14120e', panel: '#1c1a15', panel2: '#26231b',
+      ink: '#f4f1e6', muted: '#a49b86', faint: '#918b78',
+      line: 'rgba(244,241,230,0.14)', lineStrong: 'rgba(244,241,230,0.30)',
+      vector: '#3a9a93', keyword: '#a38923', fusion: '#db6a4e', rerank: '#f4f1e6', danger: '#e1645f'
+    };
+    const t = dark ? night : light;
+
+    const vars = [
+      '--base:' + t.base, '--panel:' + t.panel, '--panel-2:' + t.panel2,
+      '--ink:' + t.ink, '--muted:' + t.muted, '--faint:' + t.faint,
+      '--line:' + t.line, '--line-strong:' + t.lineStrong,
+      '--vector:' + t.vector, '--keyword:' + t.keyword,
+      '--fusion:' + t.fusion, '--rerank:' + t.rerank, '--danger:' + t.danger
+    ].join('; ');
+
+    return {
+      dark: dark,
+      vars: vars,
+      examples: [
+        { q: 'Which Indian startup builds electric scooters?', note: 'direct lookup' },
+        { q: 'Which companies offer payment gateways for businesses?', note: 'needs two startups' },
+        { q: 'Where do retail investors in India buy stocks cheaply?', note: 'no names given' },
+        { q: "What was Flipkart's valuation at its last funding round?", note: 'not in the corpus — watch it decline' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

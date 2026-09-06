@@ -2,13 +2,13 @@
 
 > Onboarding reference for AI coding agents working on this repo. Read this before modifying code or running commands.
 >
-> Verified against `af0b6f0` on 2026-08-11.
+> Verified against `main` on 2026-09-06.
 
 ---
 
 ## Project overview
 
-ISRA is a RAG (Retrieval-Augmented Generation) system over Indian startup data. It demonstrates a hand-rolled retrieval pipeline: vector search plus Postgres full-text search, then RRF fusion, then BGE rerank, backed by measured evals and a streaming Next.js chat UI.
+StartupIndex is a RAG (Retrieval-Augmented Generation) system over Indian startup data. It demonstrates a hand-rolled retrieval pipeline: vector search plus Postgres full-text search, then RRF fusion, then BGE rerank, backed by measured evals and a streaming Next.js chat UI.
 
 ```
 scrapers → startups.jsonl → chunk → embed → Postgres (chunks + vectors + tsvector)
@@ -61,7 +61,6 @@ This is a **Turborepo + uv workspace** monorepo.
 ├── data/                 # scraped corpus + cache (large files gitignored)
 ├── docs/                 # gitignored; private build plans and guides
 ├── infra/                # Docker compose + init scripts
-├── notebooks/            # embedding experiments
 ├── pyproject.toml        # root uv workspace manifest
 ├── package.json          # root bun monorepo manifest
 └── turbo.json            # Turborepo task graph
@@ -101,13 +100,54 @@ This is a **Turborepo + uv workspace** monorepo.
 
 ### `apps/web`
 
-- **Stack:** Next.js 16.2.0, React 19.2.0, TypeScript 5.9.2, Bun, Tailwind CSS v4, Framer Motion, Radix Slot.
+- **Stack:** Next.js 16.2.0, React 19.2.0, TypeScript 5.9.2, Bun, Tailwind CSS v4, Radix Slot. No animation library: the two transitions the UI has are CSS keyframes in `globals.css`.
 - **Pages:** every page is public. `/` is the chat itself. There is no landing page and no sign-in.
 - **Auth: none.** Accounts were removed in `7e40ccd`. The only gate is a shared
   `ISRA_ADMIN_KEY` on `POST /ingest`, sent as `X-ISRA-Admin-Key`. Abuse is bounded
   server-side instead, by per-IP rate limits, request size caps, and a global daily
   ceiling on generated answers.
 - **Run:** `bun run dev:web`, serving `http://localhost:3000`.
+
+### Design system (`apps/web/app/globals.css`)
+
+The UI is a parchment-and-ink instrument: mono is the default face, prose opts
+in via `.prose-human`, and radii are near zero. Four rules keep it that way, and
+all four are cheap to break by accident.
+
+**Five hues, one job each.** `--vector`, `--keyword`, `--fusion` and `--rerank`
+belong to the four retrieval channels; `--danger` means a failure and nothing
+else. There is deliberately **no `--accent`** — it used to be the same hex as
+`--fusion` while doing five unrelated jobs. A valuation, an active filter and a
+rank movement are all ink; reach for a hue only when it names a channel.
+
+**Every hue clears 4.6:1 on all three surfaces in both themes.** Light and dark
+are held to the same contrast band on purpose, so nothing reads weaker after a
+theme switch. Before changing any colour token, check it against `--base`,
+`--panel` and `--panel-2` in both blocks.
+
+**Six type steps, no seventh.** `--text-xs` 11px through `--text-2xl` 32px. Use
+the token, never an arbitrary `text-[13px]`. 11px is the floor. Uppercase
+metadata uses the `.label` class rather than respelling
+`font-mono text-xs uppercase tracking-label` inline.
+
+**Channel identity is never colour alone.** The four channel hues sit at equal
+luminance, so they are indistinguishable in grayscale and to a colour-blind
+reader. `<ChannelTag>` pairs the hue with a two-letter sigil (`VE`, `KW`, `FU`,
+`RR`) and an `sr-only` label. `components/ui/ChannelTag.test.tsx` pins this.
+
+Accessibility invariants worth not regressing: `ScoreBar` is a `role="meter"`
+with real values; `ChatView` holds one persistent `aria-live` region for finished
+answers; `PipelineTree` is a `role="status"`; the command palette and the mobile
+drawer both use `lib/hooks/useFocusTrap.ts`.
+
+### Browser storage (`apps/web/lib/storage.ts`)
+
+Every `localStorage` access goes through `readStored` / `writeStored` /
+`removeStored`, which namespace under `startupindex:` and fall back once to the
+pre-rename `isra-` key, migrating it on read. Do not call `localStorage`
+directly — a visitor from before the rename would silently lose their
+conversations. The wire headers (`X-ISRA-Admin-Key`, `x-isra-proxy-secret`) are
+a separate contract with the Python API and keep their old spelling.
 
 ### The retrieval lab (`/lab`)
 
@@ -140,7 +180,6 @@ This is a **Turborepo + uv workspace** monorepo.
 | Python | >=3.11 |
 | Web framework | FastAPI |
 | Frontend | Next.js 16, React 19, TypeScript 5.9 |
-| Frontend animations | Framer Motion |
 | Database | Postgres 16 + pgvector |
 | Python DB driver | psycopg 3 |
 | Embeddings | sentence-transformers (`BAAI/bge-small-en-v1.5`) |
@@ -262,7 +301,7 @@ Do not add LangChain, LangChain Community, or DeepEval dependencies.
 
 ## Testing strategy
 
-Tests exist and run in CI. They are not planned work.
+Tests exist and are run by hand. There is no CI. They are not planned work.
 
 - **Python:** pytest in each package.
   - `packages/retrieval`: RRF fusion correctness, rank ordering, mode parity against a fixture database.

@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap">
+  <style>
+    body { margin: 0; }
+    * { box-sizing: border-box; }
+    a { color: #ab452b; text-decoration: none; }
+    a:hover { color: #8a3722; }
+    .mono { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-feature-settings: "tnum" 1; }
+    .sans { font-family: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    .label { font-family: "Geist Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+    .sigil { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 16px; border-radius: 2px; font-family: "Geist Mono", monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; color: #fffdf7; flex-shrink: 0; }
+    .panel { border: 1px solid rgba(27,26,21,0.14); border-radius: 3px; background: #fffdf7; }
+    .cell { display: flex; flex-direction: column; gap: 8px; padding: 12px; }
+  </style>
+</helmet>
+
+<div class="mono" style="width: 1440px; height: 1240px; background: #f6f3ec; color: #1b1a15; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; padding: 40px 48px; display: flex; flex-direction: column; gap: 32px;">
+
+  <header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; border-bottom: 1px solid rgba(27,26,21,0.28); padding-bottom: 16px;">
+    <div>
+      <h1 style="margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.02em;">Design tokens</h1>
+      <p class="sans" style="margin: 8px 0 0; font-size: 15px; line-height: 1.5; color: #6b6455; max-width: 620px;">Five hues, one job each. Every one clears 4.6:1 on all three surfaces in both themes, so nothing reads weaker after a theme switch.</p>
+    </div>
+    <span class="label" style="color: #6a6557;">v2 · WCAG AA</span>
+  </header>
+
+  <!-- ── Palette ─────────────────────────────────────────────── -->
+  <section style="display: flex; flex-direction: column; gap: 14px;">
+    <p class="label" style="margin: 0; color: #6a6557;">Palette</p>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px;">
+
+      <!-- Light -->
+      <div class="panel" style="overflow: hidden;">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid rgba(27,26,21,0.14); background: #f6f3ec;">
+          <span class="label">Light</span>
+          <span class="label" style="color: #6a6557;">min 4.61 : 1</span>
+        </div>
+        <div style="padding: 14px; display: flex; flex-direction: column; gap: 10px; background: #f6f3ec;">
+          <sc-for list="{{light}}" as="t" hint-placeholder-count="9">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="width: 44px; height: 28px; border-radius: 3px; flex-shrink: 0; background: {{t.hex}}; border: 1px solid rgba(27,26,21,0.14);"></span>
+              <span style="width: 108px; flex-shrink: 0; font-size: 13px; color: #1b1a15;">{{t.name}}</span>
+              <span style="width: 76px; flex-shrink: 0; font-size: 13px; color: #6b6455;">{{t.hex}}</span>
+              <span style="width: 92px; flex-shrink: 0; font-size: 11px; color: {{t.hex}};">Aa 4.6:1 ok</span>
+              <span style="flex: 1; font-size: 11px; color: #6a6557; text-align: right;">{{t.job}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <!-- Dark -->
+      <div class="panel" style="overflow: hidden; border-color: rgba(27,26,21,0.28);">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid rgba(244,241,230,0.14); background: #14120e;">
+          <span class="label" style="color: #f4f1e6;">Dark</span>
+          <span class="label" style="color: #918b78;">min 4.60 : 1</span>
+        </div>
+        <div style="padding: 14px; display: flex; flex-direction: column; gap: 10px; background: #14120e;">
+          <sc-for list="{{dark}}" as="t" hint-placeholder-count="9">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="width: 44px; height: 28px; border-radius: 3px; flex-shrink: 0; background: {{t.hex}}; border: 1px solid rgba(244,241,230,0.14);"></span>
+              <span style="width: 108px; flex-shrink: 0; font-size: 13px; color: #f4f1e6;">{{t.name}}</span>
+              <span style="width: 76px; flex-shrink: 0; font-size: 13px; color: #a49b86;">{{t.hex}}</span>
+              <span style="width: 92px; flex-shrink: 0; font-size: 11px; color: {{t.hex}};">Aa 4.6:1 ok</span>
+              <span style="flex: 1; font-size: 11px; color: #918b78; text-align: right;">{{t.job}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Channels ────────────────────────────────────────────── -->
+  <section style="display: flex; flex-direction: column; gap: 14px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;">
+      <p class="label" style="margin: 0; color: #6a6557;">Retrieval channels</p>
+      <p class="sans" style="margin: 0; font-size: 13px; color: #6b6455;">Hue plus a two-character sigil — the trace still reads in grayscale and under colour blindness.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
+      <sc-for list="{{channels}}" as="c" hint-placeholder-count="4">
+        <div class="panel" style="overflow: hidden;">
+          <div style="height: 2px; background: {{c.hue}};"></div>
+          <div class="cell">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="sigil" style="background: {{c.hue}};">{{c.sigil}}</span>
+              <span class="label" style="color: #1b1a15;">{{c.name}}</span>
+            </div>
+            <div style="height: 6px; width: 100%; border-radius: 999px; background: #ebe5d8; overflow: hidden;">
+              <div style="height: 100%; border-radius: 999px; width: {{c.pct}}; background: {{c.hue}};"></div>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 11px; color: #6b6455;">{{c.light}}</span>
+              <span style="font-size: 11px; color: #6a6557;">{{c.darkHex}}</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ── Type scale ──────────────────────────────────────────── -->
+  <section style="display: flex; flex-direction: column; gap: 14px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;">
+      <p class="label" style="margin: 0; color: #6a6557;">Type scale</p>
+      <p class="sans" style="margin: 0; font-size: 13px; color: #6b6455;">Six steps replacing fourteen ad-hoc sizes. Floor raised from 9px to 11px.</p>
+    </div>
+    <div class="panel" style="padding: 6px 16px;">
+      <sc-for list="{{type}}" as="ty" hint-placeholder-count="6">
+        <div style="display: flex; align-items: baseline; gap: 20px; padding: 12px 0; border-bottom: 1px solid rgba(27,26,21,0.14);">
+          <span class="label" style="width: 96px; flex-shrink: 0; color: #6a6557;">{{ty.token}}</span>
+          <span style="width: 60px; flex-shrink: 0; font-size: 13px; color: #6b6455;">{{ty.px}}</span>
+          <span style="width: 150px; flex-shrink: 0; font-size: 11px; color: #6a6557;">{{ty.use}}</span>
+          <span style="flex: 1; font-family: {{ty.family}}; font-size: {{ty.px}}; font-weight: {{ty.weight}}; letter-spacing: {{ty.tracking}}; text-transform: {{ty.transform}}; color: #1b1a15; line-height: 1.25;">{{ty.sample}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ── What changed ────────────────────────────────────────── -->
+  <section style="display: flex; flex-direction: column; gap: 14px;">
+    <p class="label" style="margin: 0; color: #6a6557;">What changed</p>
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
+      <sc-for list="{{fixes}}" as="f" hint-placeholder-count="4">
+        <div class="panel" style="padding: 14px; display: flex; flex-direction: column; gap: 8px;">
+          <span class="label" style="color: #1b1a15;">{{f.title}}</span>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="width: 20px; height: 20px; border-radius: 3px; background: {{f.before}}; border: 1px solid rgba(27,26,21,0.14);"></span>
+            <span style="font-size: 11px; color: #6a6557;">{{f.beforeLabel}}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6a6557" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            <span style="width: 20px; height: 20px; border-radius: 3px; background: {{f.after}}; border: 1px solid rgba(27,26,21,0.14);"></span>
+            <span style="font-size: 11px; color: #1b1a15;">{{f.afterLabel}}</span>
+          </div>
+          <p class="sans" style="margin: 0; font-size: 13px; line-height: 1.45; color: #6b6455;">{{f.note}}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      light: [
+        { name: '--base',    hex: '#f6f3ec', job: 'app ground' },
+        { name: '--panel',   hex: '#fffdf7', job: 'raised surface' },
+        { name: '--panel-2', hex: '#ebe5d8', job: 'sunken / active' },
+        { name: '--ink',     hex: '#1b1a15', job: 'primary text · 13.9:1' },
+        { name: '--muted',   hex: '#6b6455', job: 'secondary text · 4.7:1' },
+        { name: '--faint',   hex: '#6a6557', job: 'labels · 4.6:1 (was 2.4:1)' },
+        { name: '--vector',  hex: '#1d716c', job: 'channel · 4.6:1' },
+        { name: '--keyword', hex: '#78630f', job: 'channel · 4.7:1 (was 3.2:1)' },
+        { name: '--fusion',  hex: '#ab452b', job: 'channel · 4.6:1' },
+        { name: '--danger',  hex: '#bc312c', job: 'errors only · 4.6:1' }
+      ],
+      dark: [
+        { name: '--base',    hex: '#14120e', job: 'app ground' },
+        { name: '--panel',   hex: '#1c1a15', job: 'raised surface' },
+        { name: '--panel-2', hex: '#26231b', job: 'sunken / active' },
+        { name: '--ink',     hex: '#f4f1e6', job: 'primary text · 13.9:1' },
+        { name: '--muted',   hex: '#a49b86', job: 'secondary text · 5.7:1' },
+        { name: '--faint',   hex: '#918b78', job: 'labels · 4.6:1 (was 2.8:1)' },
+        { name: '--vector',  hex: '#3a9a93', job: 'channel · 4.7:1' },
+        { name: '--keyword', hex: '#a38923', job: 'channel · 4.6:1' },
+        { name: '--fusion',  hex: '#db6a4e', job: 'channel · 4.6:1' },
+        { name: '--danger',  hex: '#e1645f', job: 'errors only · 4.6:1' }
+      ],
+      channels: [
+        { name: 'Vector search', sigil: 'VE', hue: '#1d716c', pct: '100%', light: '#1d716c', darkHex: '#3a9a93' },
+        { name: 'Keyword search', sigil: 'KW', hue: '#78630f', pct: '82%',  light: '#78630f', darkHex: '#a38923' },
+        { name: 'RRF fusion',    sigil: 'FU', hue: '#ab452b', pct: '68%',  light: '#ab452b', darkHex: '#db6a4e' },
+        { name: 'BGE rerank',    sigil: 'RR', hue: '#1b1a15', pct: '94%',  light: '#1b1a15', darkHex: '#f4f1e6' }
+      ],
+      type: [
+        { token: '--text-xs',  px: '11px', use: 'labels, meta, keys',   family: "'Geist Mono', monospace", weight: '500', tracking: '0.12em', transform: 'uppercase', sample: 'Retrieval trace · 184ms' },
+        { token: '--text-sm',  px: '13px', use: 'UI text, list rows',   family: "'Geist', sans-serif",     weight: '400', tracking: '0',       transform: 'none',      sample: 'Cashfree Payments — collections and disbursals' },
+        { token: '--text-base',px: '15px', use: 'answers, input, body', family: "'Geist', sans-serif",     weight: '400', tracking: '0',       transform: 'none',      sample: 'Two companies in the corpus offer payment gateways.' },
+        { token: '--text-lg',  px: '18px', use: 'drawer + panel titles',family: "'Geist', sans-serif",     weight: '600', tracking: '-0.01em', transform: 'none',      sample: 'Razorpay' },
+        { token: '--text-xl',  px: '24px', use: 'page titles',          family: "'Geist Mono', monospace", weight: '600', tracking: '-0.02em', transform: 'none',      sample: 'Design tokens' },
+        { token: '--text-2xl', px: '32px', use: 'arrival heading',      family: "'Geist Mono', monospace", weight: '600', tracking: '-0.03em', transform: 'none',      sample: 'StartupIndex' }
+      ],
+      fixes: [
+        { title: 'Faint',   before: '#9c9482', after: '#6a6557', beforeLabel: '2.4:1', afterLabel: '4.6:1', note: 'The label colour failed AA on every surface. It carries every score, mode and key.' },
+        { title: 'Keyword', before: '#a8761a', after: '#78630f', beforeLabel: '3.2:1', afterLabel: '4.7:1', note: 'Ochre passed in dark at 8.3:1 and failed in light. Both themes now sit in one band.' },
+        { title: 'Accent',  before: '#b34f2c', after: '#bc312c', beforeLabel: 'fusion', afterLabel: 'danger', note: 'Accent was the same hex as the fusion channel and did five jobs. Split into ink and one danger hue.' },
+        { title: 'Sigils',  before: '#ebe5d8', after: '#ab452b', beforeLabel: 'colour', afterLabel: 'VE KW', note: 'Channel identity was colour-only. Two mono characters now carry the same meaning.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

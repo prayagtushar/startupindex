@@ -1,0 +1,26 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html",     "x": 0,    "y": 0,    "w": 1440, "h": 900,  "title": "Chat — arrival" },
+    { "file": "Answer.dc.html",   "x": 1560, "y": 0,    "w": 1440, "h": 900,  "title": "Chat — answer + trace" },
+    { "file": "Lab.dc.html",      "x": 3120, "y": 0,    "w": 1440, "h": 900,  "title": "Retrieval Lab" },
+    { "file": "Startups.dc.html", "x": 0,    "y": 1060, "w": 1440, "h": 900,  "title": "Startups" },
+    { "file": "Tokens.dc.html",   "x": 1560, "y": 1060, "w": 1440, "h": 1240, "title": "Design tokens" }
+  ],
+  "annotations": [
+    {
+      "id": "brief",
+      "x": 0,
+      "y": -190,
+      "w": 620,
+      "text": "StartupIndex — redesign\n\nSame parchment-and-ink instrument, rebuilt on tokens that hold up:\n· five hues, one job each, all ≥4.6:1 on every surface in both themes\n· six type steps replacing fourteen ad-hoc sizes, floor 9px → 11px\n· one brand name, one label idiom, one radius\n· channel identity = hue + two-character sigil, so the trace survives grayscale"
+    },
+    {
+      "id": "tokens-note",
+      "x": 3120,
+      "y": 1060,
+      "w": 300,
+      "text": "Tokens board is the spec the implementation follows — every value here is lifted straight into globals.css."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}

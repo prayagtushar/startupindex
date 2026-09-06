@@ -135,6 +135,7 @@ pnpm-lock.yaml
 
 # --- Local notes / scratch ---
 notes/
+.playwright-mcp/
 
 # Points at a path inside the local journal checkout; meaningless to anyone else.
 RELATED.md
@@ -153,3 +154,7 @@ docs/
 # --- evals: ignore the regenerated JSON sidecar ---
 evaluation.json
 apps/evals/evaluation.json
+
+# --- Design canvas: sources are tracked, the assembled page is not (~2.4 MB of editor runtime) ---
+design/*-redesign.html
+design/*.seed.html
