@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Check, Database, RefreshCw, TriangleAlert } from "lucide-react";
-import { streamIngest } from "@/lib/api";
+import { fetchStartups, streamIngest } from "@/lib/api";
 import { Button } from "@/components/ui/Button";
 import { Spinner } from "@/components/ui/Spinner";
 import { cn } from "@/lib/cn";
@@ -45,7 +45,14 @@ export function IngestView() {
   const [error, setError] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
   const [started, setStarted] = useState(false);
+  const [corpusSize, setCorpusSize] = useState<number | null>(null);
   const abortRef = useRef<AbortController | null>(null);
+
+  useEffect(() => {
+    fetchStartups({ limit: 1 })
+      .then((res) => setCorpusSize(res.total))
+      .catch(() => setCorpusSize(null));
+  }, []);
 
   const start = useCallback(async () => {
     if (running) return;
@@ -120,8 +127,10 @@ export function IngestView() {
                 Stop
               </Button>
             )}
+            {/* Counted, not written into the copy — the hardcoded ~110 was stale
+                the moment the corpus grew, exactly as the 111 in the chat header was. */}
             <span className="ml-auto label text-faint">
-              ~110 companies · ≈1–2 min
+              {corpusSize === null ? "live sources" : `~${corpusSize} companies`} · ≈1–2 min
             </span>
           </div>
 

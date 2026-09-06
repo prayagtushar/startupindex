@@ -95,7 +95,7 @@ export function ChatView() {
               isStreaming={isStreaming}
               autoFocusOnMount
             />
-            <p className="mt-2 text-center font-mono text-xs tracking-wide text-faint">
+            <p className="mt-2 text-center font-mono text-xs text-faint">
               Answers are grounded in the retrieved corpus and may be incomplete.
             </p>
           </div>

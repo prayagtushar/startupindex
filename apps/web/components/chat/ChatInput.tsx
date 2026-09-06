@@ -36,7 +36,7 @@ export function ChatInput({
   };
 
   return (
-    <div className="relative rounded-input border border-line bg-panel transition-colors focus-within:border-ink focus-within:ring-1 focus-within:ring-focus">
+    <div className="relative rounded-card border border-line bg-panel transition-colors focus-within:border-ink focus-within:ring-1 focus-within:ring-focus">
       <textarea
         ref={ref}
         value={value}
@@ -53,7 +53,7 @@ export function ChatInput({
       />
 
       <div className="pointer-events-none absolute bottom-3.5 left-4 hidden sm:block">
-        <span className="font-mono text-xs tracking-wide text-faint">
+        <span className="font-mono text-xs text-faint">
           ↵ send&nbsp;·&nbsp;⇧↵ newline
         </span>
       </div>

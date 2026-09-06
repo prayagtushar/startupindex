@@ -28,7 +28,7 @@ function stageEvent(name: string, elapsed: number, total = 100) {
 function controllableStream() {
   let push!: (chunk: string) => void;
   let close!: () => void;
-  const body = new ReadableStream<Uint8Array>({
+  const body = new ReadableStream<Uint8Array<ArrayBuffer>>({
     start(controller) {
       const encoder = new TextEncoder();
       push = (chunk: string) => controller.enqueue(encoder.encode(chunk));

@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect } from "react";
+import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ExternalLink, MessageSquare, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { formatFunding, hostname } from "@/lib/format";
 import { useConversations } from "@/lib/store/conversations";
+import { useFocusTrap } from "@/lib/hooks/useFocusTrap";
 import type { Startup } from "@/lib/types";
 
 export function StartupDrawer({
@@ -18,11 +19,8 @@ export function StartupDrawer({
   const router = useRouter();
   const { newConversation } = useConversations();
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  const panelRef = useRef<HTMLElement>(null);
+  useFocusTrap(panelRef, startup != null, onClose);
 
   if (!startup) return null;
 
@@ -41,7 +39,13 @@ export function StartupDrawer({
         className="absolute inset-0 bg-ink/25 backdrop-blur-[2px]"
         onClick={onClose}
       />
-      <aside className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-line bg-base shadow-[var(--shadow-panel)] animate-rise-in">
+      <aside
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${startup.name} details`}
+        className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-line bg-base shadow-[var(--shadow-panel)] animate-rise-in"
+      >
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
           <span className="label">Startup</span>
           <button
@@ -55,7 +59,7 @@ export function StartupDrawer({
         </div>
 
         <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5">
-          <h2 className="text-lg font-semibold tracking-tight text-ink">
+          <h2 className="text-lg font-semibold text-ink">
             {startup.name}
           </h2>
           {startup.one_liner && (

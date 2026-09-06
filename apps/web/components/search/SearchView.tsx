@@ -5,8 +5,6 @@ import { Search as SearchIcon, TriangleAlert } from "lucide-react";
 import { search } from "@/lib/api";
 import { useSettings } from "@/lib/store/settings";
 import { Button } from "@/components/ui/Button";
-import { ModeSelector } from "@/components/ui/ModeSelector";
-import { TopKControl } from "@/components/ui/TopKControl";
 import { Spinner } from "@/components/ui/Spinner";
 import { StateView } from "@/components/ui/StateView";
 import { ExampleQueries, SEARCH_EXAMPLES } from "@/components/ui/ExampleQueries";
@@ -15,7 +13,8 @@ import { modeChannel } from "@/lib/channels";
 import type { Source } from "@/lib/types";
 
 export function SearchView() {
-  const { mode, setMode, topK, setTopK } = useSettings();
+  // Read-only here: the sidebar is where these are changed.
+  const { mode, topK } = useSettings();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Source[] | null>(null);
   const [ranQuery, setRanQuery] = useState("");
@@ -67,13 +66,6 @@ export function SearchView() {
             >
               {loading ? <Spinner /> : "Search"}
             </Button>
-          </div>
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <ModeSelector value={mode} onChange={setMode} className="w-full max-w-xs" />
-            <div className="flex items-center gap-2">
-              <span className="label">Top K</span>
-              <TopKControl value={topK} onChange={setTopK} />
-            </div>
           </div>
         </div>
       </div>

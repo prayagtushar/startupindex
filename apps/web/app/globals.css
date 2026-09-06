@@ -93,7 +93,6 @@
      that isn't a pill. Four of each is not a system. */
   --tracking-label: 0.12em;
   --radius-card: 3px;
-  --radius-input: 3px;
 }
 
 @layer base {
